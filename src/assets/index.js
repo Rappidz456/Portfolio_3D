@@ -31,6 +31,8 @@ import tesla from "./company/tesla.png";
 import carrent from "./carrent.png";
 import jobit from "./jobit.png";
 import tripguide from "./tripguide.png";
+import snackDash from "./snackDash.png";
+import Uber from "./Uber.png";
 
 export {
   logo,
@@ -61,6 +63,8 @@ export {
   starbucks,
   tesla,
   carrent,
+  snackDash,
+  Uber,
   jobit,
   tripguide,
 };

@@ -14,6 +14,7 @@ import {
   res,
   snackDash,
   Uber,
+  tripguide,
   threejs,
 } from "../assets";
 

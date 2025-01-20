@@ -33,6 +33,7 @@ import jobit from "./jobit.png";
 import tripguide from "./tripguide.png";
 import snackDash from "./snackDash.png";
 import Uber from "./Uber.png";
+import res from "./res.png";
 
 export {
   logo,
@@ -60,6 +61,7 @@ export {
   shopify,
   cas,
   atrule,
+  res,
   starbucks,
   tesla,
   carrent,

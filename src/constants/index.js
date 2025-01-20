@@ -8,22 +8,12 @@ import {
   reactjs,
   redux,
   tailwind,
-  nodejs,
-  mongodb,
   git,
-  figma,
-  docker,
-  meta,
-  starbucks,
-  tesla,
   cas,
   atrule,
-  shopify,
-  carrent,
+  res,
   snackDash,
   Uber,
-  jobit,
-  tripguide,
   threejs,
 } from "../assets";
 
@@ -122,7 +112,7 @@ const experiences = [
   {
     title: "Web Developer",
     company_name: "Shopify",
-    icon: shopify,
+    icon: '',
     iconBg: "#383E56",
     date: "Jan 2022 - Jan 2023",
     points: [
@@ -222,7 +212,7 @@ const projects = [
         color: "pink-text-gradient",
       },
     ],
-    image: tripguide,
+    image: res,
     source_code_link: "https://github.com/",
   },
 ];

@@ -14,6 +14,7 @@ import {
   res,
   snackDash,
   Uber,
+  jarvis,
   tripguide,
   threejs,
 } from "../assets";
@@ -85,11 +86,11 @@ const technologies = [
 
 const experiences = [
   {
-    title: "React.js Developer",
-    company_name: "Starbucks",
+    title: "React Native Developer",
+    company_name: "Cyber Advance Solutions",
     icon: cas,
     iconBg: "#383E56",
-    date: "March 2020 - April 2021",
+    date: "November 2023 - May 2024",
     points: [
       "Developing and maintaining web applications using React.js and other related technologies.",
       "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
@@ -98,11 +99,11 @@ const experiences = [
     ],
   },
   {
-    title: "React Native Developer",
-    company_name: "Tesla",
+    title: "Mobile App Developer",
+    company_name: "Atrule Technologies",
     icon: atrule,
     iconBg: "#E6DEDD",
-    date: "Jan 2021 - Feb 2022",
+    date: "June 2024 - September 2024",
     points: [
       "Developing and maintaining web applications using React.js and other related technologies.",
       "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
@@ -111,11 +112,11 @@ const experiences = [
     ],
   },
   {
-    title: "Web Developer",
-    company_name: "Shopify",
-    icon: '',
+    title: "Software Developer",
+    company_name: "Jarvis Technologies",
+    icon: jarvis,
     iconBg: "#383E56",
-    date: "Jan 2022 - Jan 2023",
+    date: "October 2024 - Present",
     points: [
       "Developing and maintaining web applications using React.js and other related technologies.",
       "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",

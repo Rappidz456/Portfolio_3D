@@ -27,6 +27,7 @@ import starbucks from "./company/starbucks.png";
 import atrule from "./company/atrule.png";
 import cas from "./company/cas.png";
 import tesla from "./company/tesla.png";
+import jarvis from "./company/jarvis.png";
 
 import carrent from "./carrent.png";
 import jobit from "./jobit.png";
@@ -63,6 +64,7 @@ export {
   atrule,
   res,
   starbucks,
+  jarvis,
   tesla,
   carrent,
   snackDash,

@@ -35,6 +35,7 @@ import tripguide from "./tripguide.png";
 import snackDash from "./snackDash.png";
 import Uber from "./Uber.png";
 import res from "./res.png";
+import fineme from "./fineme.png"
 
 export {
   logo,
@@ -53,6 +54,7 @@ export {
   javascript,
   mongodb,
   nodejs,
+  fineme,
   reactjs,
   redux,
   tailwind,

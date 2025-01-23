@@ -15,7 +15,7 @@ import {
   snackDash,
   Uber,
   jarvis,
-  tripguide,
+  fineme,
   threejs,
 } from "../assets";
 
@@ -92,10 +92,11 @@ const experiences = [
     iconBg: "#383E56",
     date: "November 2023 - May 2024",
     points: [
-      "Developing and maintaining web applications using React.js and other related technologies.",
-      "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
+      "Collaborated on a new feature for the mobile app.",
+      "Skilled in integrating the Third-Party Libraries.",
       "Implementing responsive design and ensuring cross-browser compatibility.",
       "Participating in code reviews and providing constructive feedback to other developers.",
+      "Proficient with XCODE, ANDROID, and Gradle for Native Development.",
     ],
   },
   {
@@ -105,10 +106,11 @@ const experiences = [
     iconBg: "#E6DEDD",
     date: "June 2024 - September 2024",
     points: [
-      "Developing and maintaining web applications using React.js and other related technologies.",
+      "As a React Native Developer, I was responsible for creating and maintaining application, Integrating Native Components.",
       "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
       "Implementing responsive design and ensuring cross-browser compatibility.",
       "Participating in code reviews and providing constructive feedback to other developers.",
+      " My role was to ensure app quality and its performance and working with the team to meet the project deadline.",
     ],
   },
   {
@@ -118,8 +120,8 @@ const experiences = [
     iconBg: "#383E56",
     date: "October 2024 - Present",
     points: [
-      "Developing and maintaining web applications using React.js and other related technologies.",
-      "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
+      "Design and implement innovative app development strategies that align with project goals and deliver exceptional user experiences.",
+      "Ensure consistent coding standards and UI/UX design principles across the app to maintain brand identity and enhance user engagement.",
       "Implementing responsive design and ensuring cross-browser compatibility.",
       "Participating in code reviews and providing constructive feedback to other developers.",
     ],
@@ -157,19 +159,23 @@ const projects = [
   {
     name: "SnackDash_Sahlah",
     description:
-      "Web-based platform that allows users to search, book, and manage car rentals from various providers, providing a convenient and efficient solution for transportation needs.",
+      "SnackDash is a food delivery app that combines convenience with advanced features like Mapbox integration. Built using React Native, SnackDash offers seamless functionality across both Android and iOS platforms.",
     tags: [
       {
-        name: "react",
+        name: "react native",
         color: "blue-text-gradient",
       },
       {
-        name: "mongodb",
+        name: "npm",
         color: "green-text-gradient",
       },
       {
         name: "tailwind",
         color: "pink-text-gradient",
+      },
+      {
+        name: "Firebase",
+        color: "green-text-gradient",
       },
     ],
     image: snackDash,
@@ -178,18 +184,18 @@ const projects = [
   {
     name: "Uber_Clone",
     description:
-      "Web application that enables users to search for job openings, view estimated salary ranges for positions, and locate available jobs based on their current location.",
+      "The Uber Clone app is a mobile application developed using React Native that replicates the core functionalities of the popular ride-hailing service, Uber. It allows users to request rides, track drivers in real-time, and make secure payments through an intuitive interface.",
     tags: [
       {
-        name: "react",
+        name: "react native",
         color: "blue-text-gradient",
       },
       {
-        name: "restapi",
+        name: "npm",
         color: "green-text-gradient",
       },
       {
-        name: "scss",
+        name: "Firebase",
         color: "pink-text-gradient",
       },
     ],
@@ -199,22 +205,43 @@ const projects = [
   {
     name: "Restuarent_App",
     description:
-      "A comprehensive travel booking platform that allows users to book flights, hotels, and rental cars, and offers curated recommendations for popular destinations.",
+      "The Restaurant App is a user-friendly mobile application that allows users to explore and select their preferred dining options from a curated list of restaurants. Built with a focus on intuitive navigation, the app enables users to view detailed information about each restaurant, including menus, photos, and customer ratings.",
     tags: [
       {
-        name: "nextjs",
+        name: "react native",
         color: "blue-text-gradient",
       },
       {
-        name: "supabase",
+        name: "npm",
         color: "green-text-gradient",
       },
       {
-        name: "css",
+        name: "Firebase",
         color: "pink-text-gradient",
       },
     ],
     image: res,
+    source_code_link: "https://github.com/",
+  },
+  {
+    name: "FineMe",
+    description:
+      "The Fineme app is a comprehensive mobile application designed to streamline the salon booking experience for users. It allows customers to easily browse and select their preferred salons based on location, services offered, and user ratings. The app features two distinct user roles: customers and salon partners, enabling seamless interaction between both parties.",
+    tags: [
+      {
+        name: "react native",
+        color: "blue-text-gradient",
+      },
+      {
+        name: "npm",
+        color: "green-text-gradient",
+      },
+      {
+        name: "Firebase",
+        color: "pink-text-gradient",
+      },
+    ],
+    image: fineme,
     source_code_link: "https://github.com/",
   },
 ];

@@ -1,7 +1,6 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import emailjs from "@emailjs/browser";
-
 import { styles } from "../styles";
 import { EarthCanvas } from "./canvas";
 import { SectionWrapper } from "../hoc";
@@ -17,6 +16,11 @@ const Contact = () => {
 
   const [loading, setLoading] = useState(false);
 
+  // Initialize EmailJS with your public key
+  useEffect(() => {
+    emailjs.init("X5rdvEnQQDBC3p1o0"); // Replace with your actual public key
+  }, []);
+
   const handleChange = (e) => {
     const { target } = e;
     const { name, value } = target;
@@ -30,20 +34,16 @@ const Contact = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
+    const templateParams = {
+      from_name: form.name,
+      to_name: "JavaScript Mastery",
+      from_email: form.email,
+      to_email: "atomz6432@gmail.com",
+      message: form.message, // Include the message if needed
+    };
 
     emailjs
-      .send(
-        import.meta.env.VITE_APP_EMAILJS_SERVICE_ID,
-        import.meta.env.VITE_APP_EMAILJS_TEMPLATE_ID,
-        {
-          from_name: form.name,
-          to_name: "JavaScript Mastery",
-          from_email: form.email,
-          to_email: "sujata@jsmastery.pro",
-          message: form.message,
-        },
-        import.meta.env.VITE_APP_EMAILJS_PUBLIC_KEY
-      )
+      .send('service_0af41rf', 'template_t6yu0js', templateParams)
       .then(
         () => {
           setLoading(false);
@@ -65,9 +65,7 @@ const Contact = () => {
   };
 
   return (
-    <div
-      className={`xl:mt-12 flex xl:flex-row flex-col-reverse gap-10 overflow-hidden`}
-    >
+    <div className={`xl:mt-12 flex xl:flex-row flex-col-reverse gap-10 overflow-hidden`}>
       <motion.div
         variants={slideIn("left", "tween", 0.2, 1)}
         className='flex-[0.75] bg-black-100 p-8 rounded-2xl'

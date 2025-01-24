@@ -32,18 +32,20 @@ const Contact = () => {
   };
 
   const handleSubmit = (e) => {
+    const service_ID = 'service_0af41rf';
+    const template_ID = 'template_t6yu0js';
+    const publicKey = 'X5rdvEnQQDBC3p1o0'
     e.preventDefault();
     setLoading(true);
     const templateParams = {
       from_name: form.name,
-      to_name: "JavaScript Mastery",
       from_email: form.email,
-      to_email: "atomz6432@gmail.com",
+      to_name: "Ali Asif",
       message: form.message, // Include the message if needed
     };
 
     emailjs
-      .send('service_0af41rf', 'template_t6yu0js', templateParams)
+      .send(service_ID, template_ID, templateParams, publicKey)
       .then(
         () => {
           setLoading(false);

@@ -14,10 +14,10 @@ const Contact = () => {
     <div className="xl:mt-12 flex xl:flex-row flex-col-reverse gap-10 overflow-hidden">
       <motion.div
         variants={slideIn("left", "tween", 0.2, 1)}
-        className="flex-[0.75] bg-black-100 p-8 rounded-2xl"
+        className="flex-[0.75] glass-panel p-8 rounded-2xl"
       >
         <p className={styles.sectionSubText}>Get in touch</p>
-        <h3 className={styles.sectionHeadText}>Contact.</h3>
+        <h3 className={`${styles.sectionHeadText} font-display`}>Contact.</h3>
 
         <form
           ref={formRef}
@@ -33,7 +33,7 @@ const Contact = () => {
               onChange={handleChange}
               placeholder="What's your good name?"
               required
-              className="bg-tertiary py-4 px-6 placeholder:text-secondary text-white rounded-lg outline-none border-none font-medium"
+              className="bg-tertiary py-4 px-6 placeholder:text-secondary text-white rounded-lg outline-none border border-transparent focus:border-accent/50 font-medium transition-colors"
             />
           </label>
           <label className="flex flex-col">
@@ -45,7 +45,7 @@ const Contact = () => {
               onChange={handleChange}
               placeholder="What's your web address?"
               required
-              className="bg-tertiary py-4 px-6 placeholder:text-secondary text-white rounded-lg outline-none border-none font-medium"
+              className="bg-tertiary py-4 px-6 placeholder:text-secondary text-white rounded-lg outline-none border border-transparent focus:border-accent/50 font-medium transition-colors"
             />
           </label>
           <label className="flex flex-col">
@@ -57,14 +57,14 @@ const Contact = () => {
               onChange={handleChange}
               placeholder="What you want to say?"
               required
-              className="bg-tertiary py-4 px-6 placeholder:text-secondary text-white rounded-lg outline-none border-none font-medium"
+              className="bg-tertiary py-4 px-6 placeholder:text-secondary text-white rounded-lg outline-none border border-transparent focus:border-accent/50 font-medium transition-colors"
             />
           </label>
 
           <button
             type="submit"
             disabled={loading}
-            className="bg-tertiary py-3 px-8 rounded-xl outline-none w-fit text-white font-bold shadow-md shadow-primary disabled:opacity-60"
+            className="cta-button bg-accent py-3 px-8 rounded-xl outline-none w-fit text-primary font-bold disabled:opacity-60"
           >
             {loading ? "Sending..." : "Send"}
           </button>

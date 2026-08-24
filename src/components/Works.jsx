@@ -20,15 +20,16 @@ const ProjectCard = ({
     <motion.div variants={fadeIn("up", "spring", index * 0.5, 0.75)}>
       <Tilt
         {...CARD_TILT_OPTIONS}
-        className="bg-tertiary p-5 rounded-2xl sm:w-[360px] w-full"
+        className="interactive-card bg-tertiary/90 p-5 rounded-2xl sm:w-[360px] w-full"
       >
-        <div className="relative w-full h-[230px]">
+        <div className="relative w-full h-[230px] overflow-hidden rounded-2xl group">
           <img
             src={image}
             alt={`${name} project screenshot`}
-            className="w-full h-full object-cover rounded-2xl"
+            className="w-full h-full object-cover rounded-2xl transition-transform duration-500 group-hover:scale-110"
             loading="lazy"
           />
+          <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-transparent opacity-70" />
 
           <div className="absolute inset-0 flex justify-end m-3 card-img_hover">
             <button
@@ -36,8 +37,8 @@ const ProjectCard = ({
               onClick={() =>
                 window.open(source_code_link, "_blank", "noopener,noreferrer")
               }
-              className="black-gradient w-10 h-10 rounded-full flex justify-center items-center cursor-pointer"
-              aria-label={`Open ${name} source code`}
+              className="black-gradient w-10 h-10 rounded-full flex justify-center items-center cursor-pointer border border-accent/30 hover:shadow-glow transition-shadow"
+              aria-label={`Open ${name} project`}
             >
               <img src={github} alt="" className="w-1/2 h-1/2 object-contain" />
             </button>
@@ -45,8 +46,12 @@ const ProjectCard = ({
         </div>
 
         <div className="mt-5">
-          <h3 className="text-white font-bold text-[24px]">{name}</h3>
-          <p className="mt-2 text-secondary text-[14px]">{description}</p>
+          <h3 className="text-white font-bold text-[24px] font-display">
+            {name}
+          </h3>
+          <p className="mt-2 text-secondary text-[14px] leading-relaxed">
+            {description}
+          </p>
         </div>
 
         <div className="mt-4 flex flex-wrap gap-2">
@@ -68,8 +73,8 @@ const Works = () => {
   return (
     <>
       <motion.div variants={textVariant()}>
-        <p className={`${styles.sectionSubText} `}>My work</p>
-        <h2 className={`${styles.sectionHeadText}`}>Projects.</h2>
+        <p className={`${styles.sectionSubText}`}>My work</p>
+        <h2 className={`${styles.sectionHeadText} font-display`}>Projects.</h2>
       </motion.div>
 
       <div className="w-full flex">
@@ -77,11 +82,9 @@ const Works = () => {
           variants={fadeIn("", "", 0.1, 1)}
           className="mt-3 text-secondary text-[17px] max-w-3xl leading-[30px]"
         >
-          Following projects showcase my skills and experience through
-          real-world examples of my work. Each project is briefly described with
-          links to code repositories. They reflect my ability to solve complex
-          problems, work with different technologies, and manage projects
-          effectively.
+          Production products and platforms I&apos;ve shipped — from AI-powered
+          marketplaces to real-time surveillance systems. Explore live demos and
+          case studies below.
         </motion.p>
       </div>
 

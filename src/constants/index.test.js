@@ -43,7 +43,25 @@ describe("portfolio constants", () => {
     expect(testimonials.length).toBeGreaterThan(0);
     testimonials.forEach((item) => {
       expect(item.testimonial.toLowerCase()).not.toContain("rick");
+      expect(item.company.toLowerCase()).not.toContain("atrule");
       expect(item.name).toBeTruthy();
     });
+  });
+
+  it("features Tasky and AI Surveillance without removed projects", () => {
+    const names = projects.map((project) => project.name.toLowerCase());
+    expect(names).toContain("tasky");
+    expect(names).toContain("ai surveillance system");
+    expect(names).not.toContain("snackdash_sahlah");
+    expect(names).not.toContain("uber_clone");
+    expect(names).not.toContain("restaurant_app");
+  });
+
+  it("excludes Atrule Technologies from experience", () => {
+    const companies = experiences.map((item) =>
+      item.company_name.toLowerCase()
+    );
+    expect(companies).not.toContain("atrule technologies");
+    expect(companies).toContain("wisdom it solutions");
   });
 });

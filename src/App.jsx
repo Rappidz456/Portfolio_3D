@@ -11,13 +11,17 @@ import {
   Tech,
   Works,
 } from "./components";
+import AmbientBackground from "./components/AmbientBackground";
+import ScrollProgress from "./components/ScrollProgress";
 
 const StarsCanvas = lazy(() => import("./components/canvas/Stars"));
 
 const App = () => {
   return (
     <BrowserRouter>
-      <div className="relative z-0 bg-primary">
+      <ScrollProgress />
+      <AmbientBackground />
+      <div className="relative z-10 bg-primary">
         <div className="bg-hero-pattern bg-cover bg-no-repeat bg-center">
           <Navbar />
           <Hero />

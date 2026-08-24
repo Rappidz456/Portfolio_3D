@@ -15,13 +15,12 @@ import tailwind from "./tech/tailwind.png";
 import typescript from "./tech/typescript.png";
 import threejs from "./tech/threejs.svg";
 
-import atrule from "./company/atrule.png";
 import cas from "./company/cas.png";
 import jarvis from "./company/jarvis.png";
+import wisdom from "./company/wisdom.png";
 
-import snackDash from "./snackDash.png";
-import Uber from "./Uber.png";
-import res from "./res.png";
+import tasky from "./tasky.jpg";
+import aiSurveillance from "./aiSurveillance.png";
 import fineme from "./fineme.png";
 
 export {
@@ -42,9 +41,8 @@ export {
   typescript,
   threejs,
   cas,
-  atrule,
-  res,
   jarvis,
-  snackDash,
-  Uber,
+  wisdom,
+  tasky,
+  aiSurveillance,
 };

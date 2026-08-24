@@ -10,11 +10,10 @@ import {
   tailwind,
   git,
   cas,
-  atrule,
-  res,
-  snackDash,
-  Uber,
   jarvis,
+  wisdom,
+  tasky,
+  aiSurveillance,
   fineme,
   threejs,
 } from "../assets";
@@ -36,11 +35,11 @@ export const navLinks = [
 
 const services = [
   {
-    title: "Web Developer",
+    title: "Full Stack Developer",
     icon: web,
   },
   {
-    title: "React Native Developer",
+    title: "Mobile App Developer",
     icon: mobile,
   },
 ];
@@ -86,44 +85,44 @@ const technologies = [
 
 const experiences = [
   {
-    title: "React Native Developer",
+    title: "Mobile Application Developer",
     company_name: "Cyber Advance Solutions",
     icon: cas,
     iconBg: "#383E56",
-    date: "November 2023 - May 2024",
+    date: "January 2022 - July 2024",
     points: [
-      "Collaborated on new features for production mobile apps.",
-      "Integrated third-party libraries and native modules.",
-      "Implemented responsive layouts and cross-platform compatibility.",
-      "Participated in code reviews and shared constructive feedback.",
-      "Worked with Xcode, Android Studio, and Gradle for native builds.",
+      "Developed and shipped mobile application features aligned with user needs and business goals.",
+      "Collaborated with product managers, UI/UX designers, and backend developers to translate user stories into working features.",
+      "Optimized API calls with Axios and improved app navigation using React Navigation.",
+      "Integrated third-party libraries and APIs including payment gateways, push notifications, social logins, and analytics.",
+      "Contributed to scalable, efficient mobile solutions through brainstorming and problem-solving sessions.",
     ],
   },
   {
-    title: "Mobile App Developer",
-    company_name: "Atrule Technologies",
-    icon: atrule,
-    iconBg: "#E6DEDD",
-    date: "June 2024 - September 2024",
-    points: [
-      "Built and maintained React Native applications with native components.",
-      "Collaborated with designers, product managers, and engineers.",
-      "Delivered responsive UI and consistent cross-platform behavior.",
-      "Contributed to code reviews and team delivery standards.",
-      "Focused on app quality, performance, and on-time releases.",
-    ],
-  },
-  {
-    title: "Software Developer",
+    title: "Software Engineer",
     company_name: "Jarvis Technologies",
     icon: jarvis,
-    iconBg: "#383E56",
-    date: "October 2024 - Present",
+    iconBg: "#E6DEDD",
+    date: "August 2024 - June 2025",
     points: [
-      "Design and implement app strategies aligned with product goals.",
-      "Maintain consistent coding and UI/UX standards across features.",
-      "Ship responsive experiences across devices and platforms.",
-      "Participate in reviews and continuous improvement of the codebase.",
+      "Maintained a production React Native mobile app and a React.js / Next.js web application with scalable architecture.",
+      "Developed responsive UI screens and integrated RESTful APIs using React Native, React.js, Next.js, Node.js, Redux, and Firebase.",
+      "Optimized mobile and web performance through debugging, efficient state management, and refactoring.",
+      "Delivered production releases using Agile Scrum while upholding code quality and accessibility standards.",
+    ],
+  },
+  {
+    title: "Software Engineer",
+    company_name: "Wisdom IT Solutions",
+    icon: wisdom,
+    iconBg: "#383E56",
+    date: "July 2025 - August 2026",
+    points: [
+      "Design and develop scalable web and cross-platform applications using React.js, React Native, Next.js, TypeScript, and JavaScript.",
+      "Integrate RESTful APIs, authentication flows, payment gateways, push notifications, and real-time features for production experiences.",
+      "Improve application performance through efficient state management, code optimization, and debugging.",
+      "Collaborate with product managers, designers, and backend engineers in Agile Scrum to plan sprints and ship releases.",
+      "Maintain scalable architecture, reusable components, and CI/CD workflows for reliable deployments.",
     ],
   },
 ];
@@ -138,103 +137,78 @@ const testimonials = [
   },
   {
     testimonial:
-      "Strong ownership on mobile features — clean components, solid integrations, and reliable releases.",
+      "Strong ownership on mobile and web features — clean components, solid integrations, and reliable releases.",
     name: "Product teammate",
     designation: "Product Manager",
-    company: "Atrule Technologies",
+    company: "Jarvis Technologies",
   },
   {
     testimonial:
       "Ali brings thoughtful UI work and practical engineering judgment. Great partner for shipping production apps.",
     name: "Engineering lead",
     designation: "Tech Lead",
-    company: "Jarvis Technologies",
+    company: "Wisdom IT Solutions",
   },
 ];
 
 const projects = [
   {
-    name: "SnackDash_Sahlah",
+    name: "Tasky",
     description:
-      "SnackDash is a food delivery app that combines convenience with advanced features like Mapbox integration. Built using React Native, SnackDash offers seamless functionality across both Android and iOS platforms.",
+      "AI-powered UAE services marketplace at tasky.ae — web and mobile. Post tasks or browse verified professionals across cleaning, maintenance, and more, with auth, real-time updates, REST APIs, and company onboarding for workflow tracking.",
     tags: [
       {
-        name: "react native",
+        name: "nextjs",
         color: "blue-text-gradient",
       },
       {
-        name: "npm",
+        name: "react native",
         color: "green-text-gradient",
       },
       {
-        name: "tailwind",
+        name: "nodejs",
         color: "pink-text-gradient",
       },
-      {
-        name: "Firebase",
-        color: "green-text-gradient",
-      },
     ],
-    image: snackDash,
-    source_code_link: "https://github.com/Rappidz456",
+    image: tasky,
+    source_code_link: "https://www.tasky.ae/",
   },
   {
-    name: "Uber_Clone",
+    name: "AI Surveillance System",
     description:
-      "The Uber Clone app is a mobile application developed using React Native that replicates the core functionalities of the popular ride-hailing service, Uber. It allows users to request rides, track drivers in real-time, and make secure payments through an intuitive interface.",
+      "AI-powered surveillance dashboard built with Next.js and FastAPI for real-time safety and compliance monitoring — including helmet non-compliance, line-crossing, and bottle inspection detection, backed by a scalable Node.js and Python stack for live video analytics.",
     tags: [
       {
-        name: "react native",
+        name: "nextjs",
         color: "blue-text-gradient",
       },
       {
-        name: "npm",
+        name: "fastapi",
         color: "green-text-gradient",
       },
       {
-        name: "Firebase",
+        name: "python",
         color: "pink-text-gradient",
       },
     ],
-    image: Uber,
-    source_code_link: "https://github.com/Rappidz456",
-  },
-  {
-    name: "Restaurant_App",
-    description:
-      "The Restaurant App is a user-friendly mobile application that allows users to explore and select their preferred dining options from a curated list of restaurants. Built with a focus on intuitive navigation, the app enables users to view detailed information about each restaurant, including menus, photos, and customer ratings.",
-    tags: [
-      {
-        name: "react native",
-        color: "blue-text-gradient",
-      },
-      {
-        name: "npm",
-        color: "green-text-gradient",
-      },
-      {
-        name: "Firebase",
-        color: "pink-text-gradient",
-      },
-    ],
-    image: res,
+    image: aiSurveillance,
     source_code_link: "https://github.com/Rappidz456",
   },
   {
     name: "FineMe",
     description:
-      "The Fineme app is a comprehensive mobile application designed to streamline the salon booking experience for users. It allows customers to easily browse and select their preferred salons based on location, services offered, and user ratings. The app features two distinct user roles: customers and salon partners, enabling seamless interaction between both parties.",
+      "Comprehensive salon booking mobile app where customers browse salons by location, services, and ratings. Supports two roles — customers and salon partners — for seamless booking and business management.",
     tags: [
       {
         name: "react native",
         color: "blue-text-gradient",
       },
       {
-        name: "npm",
+        name: "firebase",
         color: "green-text-gradient",
       },
       {
-        name: "Firebase",
+        name: "mobile",
         color: "pink-text-gradient",
       },
     ],

@@ -1,68 +1,91 @@
-<div align="center">
-  <br />
-    <a href="https://youtu.be/0fYi8SGA20k?feature=shared" target="_blank">
-      <img src="https://github.com/adrianhajdin/project_3D_developer_portfolio/assets/151519281/4722160a-8e61-403f-a905-728feae1f7e6" alt="Project Banner">
-    </a>
-  <br />
+# 3D Developer Portfolio
 
-  <div>
-    <img src="https://img.shields.io/badge/-React_JS-black?style=for-the-badge&logoColor=white&logo=react&color=61DAFB" alt="react.js" />
-    <img src="https://img.shields.io/badge/-Three_JS-black?style=for-the-badge&logoColor=white&logo=threedotjs&color=000000" alt="three.js" />
-    <img src="https://img.shields.io/badge/-Tailwind_CSS-black?style=for-the-badge&logoColor=white&logo=tailwindcss&color=06B6D4" alt="tailwindcss" />
-  </div>
+Interactive developer portfolio for **Muhammad Ali**, built with React, Vite, Three.js (React Three Fiber), Tailwind CSS, and Framer Motion.
 
-  <h3 align="center">A 3D Developer Portfolio</h3>
-</div>
+Live experience highlights a 3D desktop hero, animated work timeline, floating tech spheres, project gallery, testimonials, and a contact form with a 3D Earth scene.
 
-## 📋 <a name="table">Table of Contents</a>
+## Tech stack
 
-1. 🤖 [Introduction](#introduction)
-2. ⚙️ [Tech Stack](#tech-stack)
-3. 🔋 [Features](#features)
-4. 🤸 [Quick Start](#quick-start)
-
-## 🚨 Tutorial
-
-## <a name="tech-stack">⚙️ Tech Stack</a>
-
-- React.js
-- Three.js
-- React Three Fiber
-- React Three Drei
-- Email JS
-- Vite
+- React 18 + Vite 5
+- Three.js / `@react-three/fiber` / `@react-three/drei`
 - Tailwind CSS
+- Framer Motion
+- React Parallax Tilt
+- EmailJS (contact form)
+- Vitest + ESLint + Prettier
 
-## <a name="features">🔋 Features</a>
+## Features
 
-👉 **Customizable 3D Hero Section**: Includes a 3D desktop model easily customizable to suit specific needs.
+- Customizable 3D hero (desktop PC GLTF)
+- Scroll-driven section animations via `SectionWrapper`
+- 3D skills balls and starfield background
+- Vertical timeline experience section
+- Project cards with source links
+- Contact form wired through environment-based EmailJS config
+- Lazy-loaded / in-view canvases for better performance
 
-👉 **Interactive Experience and Work Sections**: Utilizes animations powered by framer motion for engaging user experience.
+## Project structure
 
-👉 **3D Skills Section**: Showcases skills using 3D geometries through three.js and React Three fiber
+```text
+src/
+  components/        # UI sections + Loader
+  components/canvas/ # R3F scenes (Computers, Earth, Ball, Stars)
+  config/            # Env-driven config (EmailJS)
+  constants/         # Portfolio content (edit here to update copy)
+  hooks/             # Shared React hooks
+  hoc/               # SectionWrapper animation HOC
+  utils/             # Motion variants + form helpers
+public/
+  desktop_pc/        # Hero GLTF model
+  planet/            # Earth GLTF model
+```
 
-👉 **Animated Projects and Testimonials**: Features animated sections using framer motion for projects and client testimonials.
+## Prerequisites
 
-👉 **Contact Section with 3D Earth Model**:Integrates a 3D earth model with email functionality powered by emailjs.
+- [Node.js](https://nodejs.org/) 18+
+- npm
 
-👉 **3D Stars**: Generate stars progressively at random positions using Three.js for background display.
+## Quick start
 
-👉 **Consistent Animations**: Implements cohesive animations throughout the website using framer motion.
+```bash
+git clone https://github.com/Rappidz456/Portfolio_3D.git
+cd Portfolio_3D
+npm install
+cp .env.example .env
+npm run dev
+```
 
-👉 **Responsive Design**: Ensures optimal display and functionality across all devices.
+Open the URL printed by Vite (usually `http://localhost:5173`).
 
-and many more, including code architecture and reusability 
+## Environment variables
 
-## <a name="quick-start">🤸 Quick Start</a>
+Copy `.env.example` to `.env` and set your [EmailJS](https://www.emailjs.com/) values:
 
-Follow these steps to set up the project locally on your machine.
+| Variable | Description |
+| --- | --- |
+| `VITE_EMAILJS_SERVICE_ID` | EmailJS service ID |
+| `VITE_EMAILJS_TEMPLATE_ID` | EmailJS template ID |
+| `VITE_EMAILJS_PUBLIC_KEY` | EmailJS public key |
 
-**Prerequisites**
+Never commit real secrets. `.env` is gitignored.
 
-Make sure you have the following installed on your machine:
+## Scripts
 
-- [Git](https://git-scm.com/)
-- [Node.js](https://nodejs.org/en)
-- [npm](https://www.npmjs.com/) (Node Package Manager)
+| Command | Description |
+| --- | --- |
+| `npm run dev` | Start Vite development server |
+| `npm run build` | Production build → `dist/` |
+| `npm run preview` | Preview the production build |
+| `npm run lint` | Run ESLint |
+| `npm run format` | Format source with Prettier |
+| `npm run test` | Run unit tests (Vitest) |
 
+## Customizing content
 
+Edit `src/constants/index.js` to update navigation, services, technologies, experience, testimonials, and projects.
+
+3D models live under `public/desktop_pc` and `public/planet`. UI images and icons live under `src/assets`.
+
+## License
+
+This project is based on the open 3D developer portfolio template pattern and customized for personal use.

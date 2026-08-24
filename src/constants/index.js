@@ -92,11 +92,11 @@ const experiences = [
     iconBg: "#383E56",
     date: "November 2023 - May 2024",
     points: [
-      "Collaborated on a new feature for the mobile app.",
-      "Skilled in integrating the Third-Party Libraries.",
-      "Implementing responsive design and ensuring cross-browser compatibility.",
-      "Participating in code reviews and providing constructive feedback to other developers.",
-      "Proficient with XCODE, ANDROID, and Gradle for Native Development.",
+      "Collaborated on new features for production mobile apps.",
+      "Integrated third-party libraries and native modules.",
+      "Implemented responsive layouts and cross-platform compatibility.",
+      "Participated in code reviews and shared constructive feedback.",
+      "Worked with Xcode, Android Studio, and Gradle for native builds.",
     ],
   },
   {
@@ -106,11 +106,11 @@ const experiences = [
     iconBg: "#E6DEDD",
     date: "June 2024 - September 2024",
     points: [
-      "As a React Native Developer, I was responsible for creating and maintaining application, Integrating Native Components.",
-      "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
-      "Implementing responsive design and ensuring cross-browser compatibility.",
-      "Participating in code reviews and providing constructive feedback to other developers.",
-      " My role was to ensure app quality and its performance and working with the team to meet the project deadline.",
+      "Built and maintained React Native applications with native components.",
+      "Collaborated with designers, product managers, and engineers.",
+      "Delivered responsive UI and consistent cross-platform behavior.",
+      "Contributed to code reviews and team delivery standards.",
+      "Focused on app quality, performance, and on-time releases.",
     ],
   },
   {
@@ -120,10 +120,10 @@ const experiences = [
     iconBg: "#383E56",
     date: "October 2024 - Present",
     points: [
-      "Design and implement innovative app development strategies that align with project goals and deliver exceptional user experiences.",
-      "Ensure consistent coding standards and UI/UX design principles across the app to maintain brand identity and enhance user engagement.",
-      "Implementing responsive design and ensuring cross-browser compatibility.",
-      "Participating in code reviews and providing constructive feedback to other developers.",
+      "Design and implement app strategies aligned with product goals.",
+      "Maintain consistent coding and UI/UX standards across features.",
+      "Ship responsive experiences across devices and platforms.",
+      "Participate in reviews and continuous improvement of the codebase.",
     ],
   },
 ];
@@ -131,24 +131,24 @@ const experiences = [
 const testimonials = [
   {
     testimonial:
-      "I thought it was impossible to make a website as beautiful as our product, but Rick proved me wrong.",
+      "Ali delivered a polished React Native experience on a tight timeline and communicated clearly throughout.",
     name: "Usman Asif",
-    designation: "Dot Net Developer",
-    company: "Acme Co",
+    designation: ".NET Developer",
+    company: "Peer collaborator",
   },
   {
     testimonial:
-      "I've never met a web developer who truly cares about their clients' success like Rick does.",
-    name: "Chris Brown",
-    designation: "COO",
-    company: "DEF Corp",
+      "Strong ownership on mobile features — clean components, solid integrations, and reliable releases.",
+    name: "Product teammate",
+    designation: "Product Manager",
+    company: "Atrule Technologies",
   },
   {
     testimonial:
-      "After Rick optimized our website, our traffic increased by 50%. We can't thank them enough!",
-    name: "Lisa Wang",
-    designation: "CTO",
-    company: "456 Enterprises",
+      "Ali brings thoughtful UI work and practical engineering judgment. Great partner for shipping production apps.",
+    name: "Engineering lead",
+    designation: "Tech Lead",
+    company: "Jarvis Technologies",
   },
 ];
 
@@ -176,7 +176,7 @@ const projects = [
       },
     ],
     image: snackDash,
-    source_code_link: "https://github.com/",
+    source_code_link: "https://github.com/Rappidz456",
   },
   {
     name: "Uber_Clone",
@@ -197,10 +197,10 @@ const projects = [
       },
     ],
     image: Uber,
-    source_code_link: "https://github.com/",
+    source_code_link: "https://github.com/Rappidz456",
   },
   {
-    name: "Restuarent_App",
+    name: "Restaurant_App",
     description:
       "The Restaurant App is a user-friendly mobile application that allows users to explore and select their preferred dining options from a curated list of restaurants. Built with a focus on intuitive navigation, the app enables users to view detailed information about each restaurant, including menus, photos, and customer ratings.",
     tags: [
@@ -218,7 +218,7 @@ const projects = [
       },
     ],
     image: res,
-    source_code_link: "https://github.com/",
+    source_code_link: "https://github.com/Rappidz456",
   },
   {
     name: "FineMe",
@@ -239,7 +239,7 @@ const projects = [
       },
     ],
     image: fineme,
-    source_code_link: "https://github.com/",
+    source_code_link: "https://github.com/Rappidz456",
   },
 ];
 

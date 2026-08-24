@@ -1,17 +1,9 @@
-import React, { Suspense } from "react";
-import { Canvas } from "@react-three/fiber";
-import {
-  Decal,
-  Float,
-  OrbitControls,
-  Preload,
-  useTexture,
-} from "@react-three/drei";
+import { Decal, Float, OrbitControls, useTexture } from "@react-three/drei";
+import CanvasShell from "./CanvasShell";
+import { useMediaQuery } from "../../hooks/useMediaQuery";
 
-import CanvasLoader from "../Loader";
-
-const Ball = (props) => {
-  const [decal] = useTexture([props.imgUrl]);
+const Ball = ({ imgUrl }) => {
+  const [decal] = useTexture([imgUrl]);
 
   return (
     <Float speed={1.75} rotationIntensity={1} floatIntensity={2}>
@@ -20,7 +12,7 @@ const Ball = (props) => {
       <mesh castShadow receiveShadow scale={2.75}>
         <icosahedronGeometry args={[1, 1]} />
         <meshStandardMaterial
-          color='#fff8eb'
+          color="#fff8eb"
           polygonOffset
           polygonOffsetFactor={-5}
           flatShading
@@ -38,19 +30,13 @@ const Ball = (props) => {
 };
 
 const BallCanvas = ({ icon }) => {
-  return (
-    <Canvas
-      frameloop='demand'
-      dpr={[1, 2]}
-      gl={{ preserveDrawingBuffer: true }}
-    >
-      <Suspense fallback={<CanvasLoader />}>
-        <OrbitControls enableZoom={false} />
-        <Ball imgUrl={icon} />
-      </Suspense>
+  const isMobile = useMediaQuery("(max-width: 500px)");
 
-      <Preload all />
-    </Canvas>
+  return (
+    <CanvasShell dpr={isMobile ? [1, 1] : [1, 1.5]}>
+      <OrbitControls enableZoom={false} />
+      <Ball imgUrl={icon} />
+    </CanvasShell>
   );
 };
 

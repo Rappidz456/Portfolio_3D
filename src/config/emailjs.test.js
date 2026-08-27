@@ -10,13 +10,15 @@ describe("emailjs config helpers", () => {
         publicKey: "k",
       })
     ).toBe(false);
+  });
 
+  it("rejects placeholder credentials", () => {
     expect(
       isEmailJsConfigured({
-        serviceId: "s",
-        templateId: "t",
-        publicKey: "k",
+        serviceId: "your_service_id",
+        templateId: "template_abc",
+        publicKey: "public_key",
       })
-    ).toBe(true);
+    ).toBe(false);
   });
 });

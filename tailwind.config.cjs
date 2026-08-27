@@ -1,53 +1,54 @@
 /** @type {import('tailwindcss').Config} */
+
+/** Channel-based token so Tailwind opacity modifiers keep working. */
+const token = (name) => `rgb(var(--c-${name}) / <alpha-value>)`;
+
 module.exports = {
   content: ["./src/**/*.{js,jsx}"],
   mode: "jit",
+  darkMode: ["class", '[data-theme="dark"]'],
   theme: {
     extend: {
       colors: {
-        primary: "#06090f",
-        secondary: "#9aa4b2",
-        tertiary: "#101826",
-        accent: "#2dd4bf",
-        accentSoft: "#5eead4",
-        warm: "#fbbf24",
-        "black-100": "#0c1422",
-        "black-200": "#080d16",
-        "white-100": "#eef2f7",
+        /* Themed tokens — resolve per data-theme, see src/index.css */
+        paper: token("paper"),
+        surface: token("surface"),
+        raised: token("raised"),
+        ink: token("ink"),
+        grey: token("muted"),
+        accent: token("accent"),
+        accent2: token("accent2"),
+        clay: token("clay"),
+        sand: token("sand"),
+
+        /* Legacy aliases so older utility strings keep resolving */
+        primary: token("paper"),
+        secondary: token("muted"),
+        tertiary: token("surface"),
+        espresso: token("clay"),
+        warm: token("sand"),
+        "paper-200": token("surface"),
       },
       fontFamily: {
-        display: ["Syne", "sans-serif"],
-        body: ["Outfit", "sans-serif"],
+        display: ["Instrument Serif", "Georgia", "serif"],
+        body: ["DM Sans", "system-ui", "sans-serif"],
+      },
+      letterSpacing: {
+        tighter2: "-0.045em",
+      },
+      backgroundImage: {
+        "accent-gradient": "linear-gradient(115deg, var(--accent), var(--accent2))",
       },
       boxShadow: {
-        card: "0px 28px 80px -20px rgba(45, 212, 191, 0.18)",
-        glow: "0 0 40px rgba(45, 212, 191, 0.35)",
+        card: "0 30px 60px -35px var(--shadow-strong)",
+        lift: "0 40px 80px -40px var(--shadow-soft)",
+        glow: "0 18px 40px -18px rgb(var(--c-accent) / 0.7)",
       },
       screens: {
         xs: "450px",
       },
-      backgroundImage: {
-        "hero-pattern":
-          "radial-gradient(ellipse 80% 60% at 50% -20%, rgba(45, 212, 191, 0.18), transparent 55%), radial-gradient(ellipse 50% 40% at 90% 10%, rgba(251, 191, 36, 0.08), transparent 50%), linear-gradient(180deg, #06090f 0%, #0a1018 100%)",
-      },
-      keyframes: {
-        float: {
-          "0%, 100%": { transform: "translateY(0px)" },
-          "50%": { transform: "translateY(-12px)" },
-        },
-        shimmer: {
-          "0%": { backgroundPosition: "200% 0" },
-          "100%": { backgroundPosition: "-200% 0" },
-        },
-        pulseGlow: {
-          "0%, 100%": { opacity: "0.45" },
-          "50%": { opacity: "0.85" },
-        },
-      },
-      animation: {
-        float: "float 5s ease-in-out infinite",
-        shimmer: "shimmer 4s linear infinite",
-        pulseGlow: "pulseGlow 3.5s ease-in-out infinite",
+      transitionTimingFunction: {
+        editorial: "cubic-bezier(0.16, 1, 0.3, 1)",
       },
     },
   },

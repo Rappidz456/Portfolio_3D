@@ -2,7 +2,7 @@
 
 Interactive developer portfolio for **Muhammad Ali**, built with React, Vite, Three.js (React Three Fiber), Tailwind CSS, and Framer Motion.
 
-Live experience highlights a 3D desktop hero, animated work timeline, floating tech spheres, project gallery, testimonials, and a contact form with a 3D Earth scene.
+Editorial, typography-driven layout with a persisted dark/light theme, animated WebGL scenes (hero rig, particle depth field, technology spheres, contact globe), a cursor-tracking project index, and an EmailJS-backed contact form.
 
 ## Tech stack
 
@@ -10,34 +10,33 @@ Live experience highlights a 3D desktop hero, animated work timeline, floating t
 - Three.js / `@react-three/fiber` / `@react-three/drei`
 - Tailwind CSS
 - Framer Motion
-- React Parallax Tilt
 - EmailJS (contact form)
 - Vitest + ESLint + Prettier
 
 ## Features
 
-- Customizable 3D hero (desktop PC GLTF)
+- Dark/light theme, defaulting to dark, persisted in localStorage and applied before first paint
+- Editorial hero with a masked word reveal over an animated 3D rig that follows the cursor
 - Scroll-driven section animations via `SectionWrapper`
-- 3D skills balls and starfield background
-- Vertical timeline experience section
-- Project cards with source links
-- Contact form wired through environment-based EmailJS config
-- Lazy-loaded / in-view canvases for better performance
+- Project index with a cursor-tracking preview on desktop, inline images on touch
+- Expandable services list, procedurally textured 3D planets in a single canvas, and a full-bleed looping marquee
+- Brand logos rendered to canvas textures with Path2D from `src/constants/techIcons.js` (Simple Icons, CC0-1.0)
+- Experience laid out as a typographic index rather than a timeline widget
+- Contact form wired through environment-based EmailJS config, with an inline submit spinner and toast notifications
+- Reduced-motion support throughout
 
 ## Project structure
 
 ```text
 src/
-  components/        # UI sections + Loader
-  components/canvas/ # R3F scenes (Computers, Earth, Ball, Stars)
+  components/        # UI sections + Loader + ScrollProgress
+  components/canvas/ # R3F scenes (CanvasShell, HeroScene, ParticleField, TechSpheres, GlobeScene)
+  context/           # Theme and toast providers
   config/            # Env-driven config (EmailJS)
   constants/         # Portfolio content (edit here to update copy)
   hooks/             # Shared React hooks
   hoc/               # SectionWrapper animation HOC
   utils/             # Motion variants + form helpers
-public/
-  desktop_pc/        # Hero GLTF model
-  planet/            # Earth GLTF model
 ```
 
 ## Prerequisites
@@ -84,8 +83,8 @@ Never commit real secrets. `.env` is gitignored.
 
 Edit `src/constants/index.js` to update navigation, services, technologies, experience, testimonials, and projects.
 
-3D models live under `public/desktop_pc` and `public/planet`. UI images and icons live under `src/assets`.
+Both theme palettes are defined as RGB-channel CSS variables in `src/index.css` (under `:root` and `[data-theme="dark"]`) and surfaced to Tailwind in `tailwind.config.cjs`, so utilities like `bg-paper` and `text-accent` follow the active theme. UI images and icons live under `src/assets`.
 
 ## License
 
-This project is based on the open 3D developer portfolio template pattern and customized for personal use.
+Customized for personal use.

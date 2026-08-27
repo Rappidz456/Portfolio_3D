@@ -11,8 +11,18 @@ export function getEmailJsConfig() {
 }
 
 /**
- * Returns true when all EmailJS env vars are present.
+ * Returns true when all EmailJS env vars are present and not placeholders.
  */
 export function isEmailJsConfigured(config = getEmailJsConfig()) {
-  return Boolean(config.serviceId && config.templateId && config.publicKey);
+  const values = [config.serviceId, config.templateId, config.publicKey];
+  if (values.some((value) => !value)) return false;
+
+  const placeholders = [
+    "your_service_id",
+    "your_template_id",
+    "your_public_key",
+  ];
+  return !values.some((value) =>
+    placeholders.includes(String(value).trim().toLowerCase())
+  );
 }

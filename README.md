@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:0B0B14,50:322A6E,100:6D5EF5&height=230&section=header&text=Muhammad%20Ali&fontSize=54&fontColor=F5F3FF&animation=fadeIn&fontAlignY=36&desc=Full-Stack%20%26%20Mobile%20Engineer%20%E2%80%94%20React%20%C2%B7%20React%20Native%20%C2%B7%20Next.js%20%C2%B7%20Node.js&descAlignY=58&descSize=19&descColor=C9C3F5" width="100%" alt="Muhammad Ali — Full-Stack & Mobile Engineer" />
+<img src=".github/readme/banner.png" width="100%" alt="Muhammad Ali — portfolio hero, live at muhammadali-dev-seven.vercel.app" />
 
 ### 3D Developer Portfolio
 

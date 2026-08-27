@@ -2,55 +2,56 @@ import { motion } from "framer-motion";
 
 import { styles } from "../styles";
 import { SectionWrapper } from "../hoc";
-import { fadeIn, textVariant } from "../utils/motion";
 import { testimonials } from "../constants";
+import { fadeIn, textVariant } from "../utils/motion";
 
 const FeedbackCard = ({ index, testimonial, name, designation, company }) => (
-  <motion.div
-    variants={fadeIn("", "spring", index * 0.5, 0.75)}
-    className="interactive-card bg-black-200/90 p-10 rounded-3xl xs:w-[320px] w-full"
+  <motion.figure
+    variants={fadeIn("up", "tween", index * 0.09, 0.7)}
+    className="interactive-card flex flex-col justify-between rounded-sm p-8 sm:p-10"
   >
-    <p className="text-accentSoft font-black text-[48px] font-display">
-      &quot;
-    </p>
+    <span
+      className="font-display text-[56px] leading-none text-sand"
+      aria-hidden="true"
+    >
+      &ldquo;
+    </span>
 
-    <div className="mt-1">
-      <p className="text-white tracking-wider text-[18px]">{testimonial}</p>
+    <blockquote className="mt-2 flex-1">
+      <p className="font-display text-[21px] leading-[1.45] text-ink">
+        {testimonial}
+      </p>
+    </blockquote>
 
-      <div className="mt-7 flex justify-between items-center gap-1">
-        <div className="flex-1 flex flex-col">
-          <p className="text-white font-medium text-[16px]">
-            <span className="green-text-gradient">@</span> {name}
-          </p>
-          <p className="mt-1 text-secondary text-[12px]">
-            {designation} at {company}
-          </p>
-        </div>
-      </div>
-    </div>
-  </motion.div>
+    <figcaption className="mt-8 border-t border-[color:var(--hairline)] pt-5">
+      <p className="text-[14px] font-normal text-ink">{name}</p>
+      <p className="mt-1 text-[12px] font-light text-grey">
+        {designation} · {company}
+      </p>
+    </figcaption>
+  </motion.figure>
 );
 
 const Feedbacks = () => {
   return (
-    <div className="mt-12 bg-black-100/80 rounded-[20px] border border-accent/10">
-      <div
-        className={`bg-tertiary rounded-2xl ${styles.padding} min-h-[300px]`}
+    <>
+      <motion.div
+        variants={textVariant()}
+        className="flex flex-wrap items-end justify-between gap-6"
       >
-        <motion.div variants={textVariant()}>
-          <p className={styles.sectionSubText}>What others say</p>
-          <h2 className={`${styles.sectionHeadText} font-display`}>
-            Testimonials.
-          </h2>
-        </motion.div>
-      </div>
-      <div className={`-mt-20 pb-14 ${styles.paddingX} flex flex-wrap gap-7`}>
+        <div>
+          <p className={styles.sectionSubText}>Social proof</p>
+          <h2 className={`${styles.sectionHeadText} mt-6`}>Testimonials</h2>
+        </div>
+      </motion.div>
+
+      <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {testimonials.map((testimonial, index) => (
           <FeedbackCard key={testimonial.name} index={index} {...testimonial} />
         ))}
       </div>
-    </div>
+    </>
   );
 };
 
-export default SectionWrapper(Feedbacks, "");
+export default SectionWrapper(Feedbacks, "testimonials");

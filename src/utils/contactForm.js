@@ -16,13 +16,18 @@ export function updateContactField(form, name, value) {
 
 /**
  * Builds the EmailJS template payload from form state.
+ * Template variables should match these keys in your EmailJS dashboard:
+ * {{from_name}}, {{from_email}}, {{to_name}}, {{message}}, {{reply_to}}
  */
 export function buildEmailTemplateParams(form, toName = "Muhammad Ali") {
+  const fromEmail = form.email.trim();
+
   return {
     from_name: form.name.trim(),
-    from_email: form.email.trim(),
+    from_email: fromEmail,
     to_name: toName,
     message: form.message.trim(),
+    reply_to: fromEmail,
   };
 }
 

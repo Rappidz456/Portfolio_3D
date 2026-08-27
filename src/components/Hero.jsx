@@ -1,118 +1,124 @@
-import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { lazy, Suspense } from "react";
 
-import { styles } from "../styles";
-import { ComputersCanvas } from "./canvas";
+const HeroSceneCanvas = lazy(() => import("./canvas/HeroScene"));
 
-const ROLES = [
-  "Full Stack Engineer",
-  "React Native Builder",
-  "AI-Ready Product Dev",
+/** Headline broken into lines so each can mask its own rise-in. */
+const HEADLINE = [
+  [{ text: "Build" }, { text: "bold," }],
+  [{ text: "build" }, { text: "smart", accent: true }],
 ];
 
-const Hero = () => {
-  const [roleIndex, setRoleIndex] = useState(0);
+const STEP = 0.075;
+const BASE_DELAY = 0.25;
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setRoleIndex((current) => (current + 1) % ROLES.length);
-    }, 2600);
-    return () => clearInterval(timer);
-  }, []);
+const RevealHeadline = () => {
+  let wordIndex = -1;
 
   return (
-    <section className="relative w-full h-screen mx-auto overflow-hidden">
-      <div
-        className={`absolute inset-0 top-[110px] max-w-7xl mx-auto ${styles.paddingX} flex flex-row items-start gap-5 z-10`}
-      >
-        <div className="flex flex-col justify-center items-center mt-5">
-          <div className="w-5 h-5 rounded-full bg-accent shadow-glow animate-pulseGlow" />
-          <div className="w-1 sm:h-80 h-40 accent-gradient" />
-        </div>
-
-        <div className="max-w-3xl">
-          <motion.p
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="mb-3 inline-flex rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-xs font-medium uppercase tracking-[0.2em] text-accentSoft"
-          >
-            Available for product work
-          </motion.p>
-
-          <motion.h1
-            initial={{ opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className={`${styles.heroHeadText} text-white font-display`}
-          >
-            Hi, I&apos;m{" "}
-            <span className="text-gradient-accent">Muhammad Ali</span>
-          </motion.h1>
-
-          <div className="mt-3 h-[42px] sm:h-[48px]">
-            <AnimatePresence mode="wait">
-              <motion.p
-                key={ROLES[roleIndex]}
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -12 }}
-                transition={{ duration: 0.35 }}
-                className="text-accentSoft text-xl sm:text-2xl font-semibold"
+    <h1 className="display-xl text-ink">
+      {HEADLINE.map((line, lineIndex) => (
+        <span className="reveal-line" key={`line-${lineIndex}`}>
+          {line.map((word, index) => {
+            wordIndex += 1;
+            return (
+              <span
+                key={`${word.text}-${index}`}
+                className={`reveal-word ${word.accent ? "accent-italic" : ""}`}
+                style={{ animationDelay: `${BASE_DELAY + wordIndex * STEP}s` }}
               >
-                {ROLES[roleIndex]}
-              </motion.p>
-            </AnimatePresence>
-          </div>
+                {word.text}
+                {index < line.length - 1 ? " " : ""}
+              </span>
+            );
+          })}
+        </span>
+      ))}
+    </h1>
+  );
+};
 
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className={`${styles.heroSubText} mt-3 text-white-100`}
-          >
-            Building scalable web and mobile products with React, Next.js,
-            Node.js, and AI-powered experiences.
-          </motion.p>
+const Hero = () => {
+  return (
+    <section className="relative min-h-[100svh] w-full overflow-hidden">
+      {/* Colour bloom behind the 3D rig */}
+      <div
+        className="hero-glow right-[2%] top-[8%] h-[26rem] w-[26rem] bg-accent/50 sm:right-[6%]"
+        aria-hidden="true"
+      />
+      <div
+        className="hero-glow bottom-[6%] right-[26%] h-[20rem] w-[20rem] bg-accent2/45"
+        style={{ animationDelay: "1.8s" }}
+        aria-hidden="true"
+      />
 
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="mt-8 flex flex-wrap gap-4"
-          >
-            <a
-              href="#work"
-              className="cta-button rounded-xl bg-accent px-6 py-3 text-sm font-semibold text-primary"
-            >
-              View projects
-            </a>
-            <a
-              href="#contact"
-              className="cta-button rounded-xl border border-accent/40 bg-transparent px-6 py-3 text-sm font-semibold text-white hover:bg-accent/10"
-            >
-              Let&apos;s talk
-            </a>
-          </motion.div>
-        </div>
+      {/* Animated 3D rig — drag-free, follows the cursor */}
+      <div className="absolute inset-y-0 right-0 z-0 w-full sm:w-[64%] lg:w-[56%]">
+        <Suspense fallback={null}>
+          <HeroSceneCanvas className="h-full w-full" />
+        </Suspense>
       </div>
 
-      <ComputersCanvas />
+      <div className="relative z-10 mx-auto flex min-h-[100svh] w-full max-w-[96rem] flex-col justify-between px-6 pb-10 pt-32 sm:px-10 sm:pb-14 sm:pt-40 lg:px-16">
+        <div className="flex-1">
+          <p
+            className="section-eyebrow fade-up-late"
+            style={{ animationDelay: "0.1s" }}
+          >
+            Full Stack Software Engineer
+          </p>
 
-      <div className="absolute xs:bottom-10 bottom-32 w-full flex justify-center items-center z-10">
-        <a href="#about" aria-label="Scroll to about section">
-          <div className="w-[35px] h-[64px] rounded-3xl border-2 border-accent/50 flex justify-center items-start p-2">
-            <motion.div
-              animate={{ y: [0, 24, 0] }}
-              transition={{
-                duration: 1.5,
-                repeat: Infinity,
-                repeatType: "loop",
-              }}
-              className="w-3 h-3 rounded-full bg-accent mb-1"
-            />
+          <div className="mt-8 sm:mt-10">
+            <RevealHeadline />
           </div>
-        </a>
+
+          <div className="mt-10 grid gap-10 md:grid-cols-12 md:items-end">
+            <p
+              className="lede fade-up-late md:col-span-6 lg:col-span-5"
+              style={{ animationDelay: "0.75s" }}
+            >
+              High-quality full-stack applications for every product — from
+              first idea through to launch.
+            </p>
+
+            <div
+              className="fade-up-late flex flex-wrap items-center gap-4 md:col-span-6 md:justify-end lg:col-span-7"
+              style={{ animationDelay: "0.95s" }}
+            >
+              <a href="#projects" className="site-btn">
+                Selected work
+              </a>
+              <a href="#contact" className="site-btn site-btn-ghost">
+                Start a project
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div
+          className="fade-up-late mt-16 flex flex-wrap items-end justify-between gap-8 border-t border-[color:var(--hairline)] pt-6"
+          style={{ animationDelay: "1.15s" }}
+        >
+          <div className="flex flex-wrap items-center gap-x-10 gap-y-4">
+            <span className="flex items-center gap-2.5">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-60" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-accent" />
+              </span>
+              <span className="text-[13px] font-light text-grey">
+                Available for work
+              </span>
+            </span>
+
+            <span className="text-[13px] font-light text-grey">
+              4+ years shipping production software
+            </span>
+          </div>
+
+          <div className="hidden items-center gap-4 sm:flex">
+            <span className="meta-label">Scroll</span>
+            <span className="scroll-cue" aria-hidden="true" />
+          </div>
+        </div>
       </div>
     </section>
   );

@@ -4,6 +4,7 @@ import {
   navLinks,
   projects,
   services,
+  skillCategories,
   technologies,
   testimonials,
 } from "./index";
@@ -13,13 +14,37 @@ describe("portfolio constants", () => {
     expect(navLinks.map((link) => link.id)).toEqual([
       "about",
       "work",
+      "projects",
       "contact",
     ]);
   });
 
   it("includes personalized services and tech", () => {
     expect(services.length).toBeGreaterThan(0);
-    expect(technologies.every((tech) => tech.name && tech.icon)).toBe(true);
+    expect(technologies.length).toBeGreaterThanOrEqual(16);
+    expect(
+      technologies.every((tech) => tech.name && tech.label && tech.color)
+    ).toBe(true);
+  });
+
+  it("includes full resume skill categories", () => {
+    expect(skillCategories.length).toBeGreaterThanOrEqual(6);
+    const allSkills = skillCategories.flatMap((group) => group.skills);
+    expect(allSkills).toEqual(
+      expect.arrayContaining([
+        "JavaScript",
+        "TypeScript",
+        "Python",
+        "SQL",
+        "React Native",
+        "Next.js",
+        "FastAPI",
+        "PostgreSQL",
+        "Docker",
+        "OpenAI API",
+        "Anthropic",
+      ])
+    );
   });
 
   it("keeps experience entries complete", () => {

@@ -36,6 +36,7 @@ describe("contactForm utilities", () => {
       from_email: "ali@example.com",
       to_name: "Muhammad Ali",
       message: "Hello",
+      reply_to: "ali@example.com",
     });
   });
 

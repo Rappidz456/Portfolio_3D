@@ -1,10 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/logo.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Muhammad Ali | Full Stack Portfolio</title>
+    <meta name="theme-color" content="#0B0A0C" />
+    <meta
+      name="description"
+      content="Muhammad Ali — Full Stack Software Engineer building web, mobile, and AI-integrated products from idea to launch."
+    />
+    <title>Muhammad Ali — Full Stack Software Engineer</title>
+    <script>
+      // Apply the stored theme before first paint so there is no flash.
+      (function () {
+        try {
+          var stored = localStorage.getItem("portfolio-theme");
+          document.documentElement.setAttribute(
+            "data-theme",
+            stored === "light" || stored === "dark" ? stored : "dark"
+          );
+        } catch (error) {
+          document.documentElement.setAttribute("data-theme", "dark");
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

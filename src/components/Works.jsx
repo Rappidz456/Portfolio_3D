@@ -1,100 +1,156 @@
-import Tilt from "react-parallax-tilt";
-import { motion } from "framer-motion";
+import { useCallback, useState } from "react";
+import { motion, useMotionValue, useSpring } from "framer-motion";
+import { ArrowUpRight } from "lucide-react";
 
 import { styles } from "../styles";
-import { github } from "../assets";
 import { SectionWrapper } from "../hoc";
 import { projects } from "../constants";
-import { CARD_TILT_OPTIONS } from "../constants/tilt";
+import { useMediaQuery } from "../hooks/useMediaQuery";
 import { fadeIn, textVariant } from "../utils/motion";
 
-const ProjectCard = ({
-  index,
-  name,
-  description,
-  tags,
-  image,
-  source_code_link,
-}) => {
-  return (
-    <motion.div variants={fadeIn("up", "spring", index * 0.5, 0.75)}>
-      <Tilt
-        {...CARD_TILT_OPTIONS}
-        className="interactive-card bg-tertiary/90 p-5 rounded-2xl sm:w-[360px] w-full"
-      >
-        <div className="relative w-full h-[230px] overflow-hidden rounded-2xl group">
+const SPRING = { stiffness: 220, damping: 28, mass: 0.6 };
+
+/**
+ * Preview thumbnail that trails the cursor across the project index.
+ * Desktop only — touch devices get the image inline in each row instead.
+ */
+const ProjectPeek = ({ project, x, y }) => (
+  <motion.div
+    className="project-peek"
+    style={{ x, y }}
+    initial={{ opacity: 0, scale: 0.94 }}
+    animate={{ opacity: project ? 1 : 0, scale: project ? 1 : 0.94 }}
+    transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+    aria-hidden="true"
+  >
+    {projects.map((item) => (
+      <img
+        key={item.name}
+        src={item.image}
+        alt=""
+        className={`absolute inset-0 h-full w-full transition-opacity duration-300 ${
+          item.imageFit === "contain"
+            ? "bg-paper-200 object-contain p-6"
+            : "object-cover"
+        } ${project?.name === item.name ? "opacity-100" : "opacity-0"}`}
+      />
+    ))}
+  </motion.div>
+);
+
+const ProjectRow = ({ project, index, isDesktop, onEnter, onLeave }) => (
+  <motion.a
+    variants={fadeIn("up", "tween", index * 0.06, 0.7)}
+    href={project.source_code_link}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="project-row group"
+    onMouseEnter={() => onEnter(project)}
+    onMouseLeave={onLeave}
+  >
+    <div className="relative flex flex-col gap-5 px-1 py-8 sm:py-10 md:flex-row md:items-center md:gap-8">
+      <span className="index-num md:w-14 md:shrink-0">
+        {String(index + 1).padStart(2, "0")}
+      </span>
+
+      {!isDesktop ? (
+        <div className="h-52 w-full overflow-hidden rounded-sm bg-paper-200">
           <img
-            src={image}
-            alt={`${name} project screenshot`}
-            className="w-full h-full object-cover rounded-2xl transition-transform duration-500 group-hover:scale-110"
+            src={project.image}
+            alt={`${project.name} preview`}
             loading="lazy"
+            className={`h-full w-full ${
+              project.imageFit === "contain"
+                ? "object-contain p-6"
+                : "object-cover"
+            }`}
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-transparent opacity-70" />
-
-          <div className="absolute inset-0 flex justify-end m-3 card-img_hover">
-            <button
-              type="button"
-              onClick={() =>
-                window.open(source_code_link, "_blank", "noopener,noreferrer")
-              }
-              className="black-gradient w-10 h-10 rounded-full flex justify-center items-center cursor-pointer border border-accent/30 hover:shadow-glow transition-shadow"
-              aria-label={`Open ${name} project`}
-            >
-              <img src={github} alt="" className="w-1/2 h-1/2 object-contain" />
-            </button>
-          </div>
         </div>
+      ) : null}
 
-        <div className="mt-5">
-          <h3 className="text-white font-bold text-[24px] font-display">
-            {name}
-          </h3>
-          <p className="mt-2 text-secondary text-[14px] leading-relaxed">
-            {description}
-          </p>
-        </div>
+      <div className="project-row__title min-w-0 flex-1">
+        <h3 className="display-md text-ink">{project.name}</h3>
+        <p className="mt-3 max-w-xl text-[14px] font-light leading-relaxed text-grey">
+          {project.description}
+        </p>
+      </div>
 
-        <div className="mt-4 flex flex-wrap gap-2">
-          {tags.map((tag) => (
-            <p
-              key={`${name}-${tag.name}`}
-              className={`text-[14px] ${tag.color}`}
-            >
-              #{tag.name}
-            </p>
+      <div className="flex items-center justify-between gap-6 md:w-auto md:shrink-0 md:flex-col md:items-end md:gap-5">
+        <div className="flex flex-wrap gap-2 md:justify-end">
+          {project.tags.map((tag) => (
+            <span key={`${project.name}-${tag.name}`} className="tag-pill">
+              {tag.name}
+            </span>
           ))}
         </div>
-      </Tilt>
-    </motion.div>
-  );
-};
+        <span className="visit-btn shrink-0" aria-hidden="true">
+          <ArrowUpRight className="h-4 w-4" strokeWidth={1.5} />
+        </span>
+      </div>
+    </div>
+  </motion.a>
+);
 
 const Works = () => {
+  const isDesktop = useMediaQuery("(min-width: 768px)");
+  const [hovered, setHovered] = useState(null);
+
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const x = useSpring(mouseX, SPRING);
+  const y = useSpring(mouseY, SPRING);
+
+  const handleMouseMove = useCallback(
+    (event) => {
+      if (!isDesktop) return;
+      // Offset so the preview sits just past the cursor.
+      mouseX.set(event.clientX + 28);
+      mouseY.set(event.clientY - 104);
+    },
+    [isDesktop, mouseX, mouseY]
+  );
+
+  const handleEnter = useCallback(
+    (project) => {
+      if (isDesktop) setHovered(project);
+    },
+    [isDesktop]
+  );
+
+  const handleLeave = useCallback(() => setHovered(null), []);
+
   return (
     <>
-      <motion.div variants={textVariant()}>
-        <p className={`${styles.sectionSubText}`}>My work</p>
-        <h2 className={`${styles.sectionHeadText} font-display`}>Projects.</h2>
+      <motion.div
+        variants={textVariant()}
+        className="flex flex-wrap items-end justify-between gap-6"
+      >
+        <div>
+          <p className={styles.sectionSubText}>Selected work</p>
+          <h2 className={`${styles.sectionHeadText} mt-6`}>Projects</h2>
+        </div>
+        <p className="max-w-xs text-[14px] font-light leading-relaxed text-grey">
+          A few products I&apos;ve designed, built, and shipped — across web,
+          mobile, and AI systems.
+        </p>
       </motion.div>
 
-      <div className="w-full flex">
-        <motion.p
-          variants={fadeIn("", "", 0.1, 1)}
-          className="mt-3 text-secondary text-[17px] max-w-3xl leading-[30px]"
-        >
-          Production products and platforms I&apos;ve shipped — from AI-powered
-          marketplaces to real-time surveillance systems. Explore live demos and
-          case studies below.
-        </motion.p>
-      </div>
-
-      <div className="mt-20 flex flex-wrap gap-7">
+      <div className="mt-14" onMouseMove={handleMouseMove}>
         {projects.map((project, index) => (
-          <ProjectCard key={`project-${index}`} index={index} {...project} />
+          <ProjectRow
+            key={project.name}
+            project={project}
+            index={index}
+            isDesktop={isDesktop}
+            onEnter={handleEnter}
+            onLeave={handleLeave}
+          />
         ))}
       </div>
+
+      {isDesktop ? <ProjectPeek project={hovered} x={x} y={y} /> : null}
     </>
   );
 };
 
-export default SectionWrapper(Works, "");
+export default SectionWrapper(Works, "projects");

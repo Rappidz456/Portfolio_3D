@@ -17,9 +17,9 @@ const CanvasLoader = () => {
       <p
         style={{
           fontSize: 14,
-          color: "#F1F1F1",
-          fontWeight: 800,
-          marginTop: 40,
+          color: "#707070",
+          fontWeight: 400,
+          marginTop: 28,
         }}
       >
         {progress.toFixed(2)}%

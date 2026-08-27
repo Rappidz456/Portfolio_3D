@@ -7,6 +7,7 @@
 An editorial, typography-driven portfolio site with a persisted dark/light theme,<br/>
 animated WebGL scenes, and a cursor-tracking project index.
 
+[![Live Demo](https://img.shields.io/badge/Live_Demo-muhammadali--dev--seven.vercel.app-6D5EF5?style=flat-square&logo=vercel&logoColor=white)](https://muhammadali-dev-seven.vercel.app)
 [![React](https://img.shields.io/badge/React_18-20232A?style=flat-square&logo=react&logoColor=61DAFB)](https://react.dev/)
 [![Vite](https://img.shields.io/badge/Vite_5-646CFF?style=flat-square&logo=vite&logoColor=white)](https://vitejs.dev/)
 [![Three.js](https://img.shields.io/badge/React_Three_Fiber-000000?style=flat-square&logo=three.js&logoColor=white)](https://docs.pmnd.rs/react-three-fiber)
@@ -15,11 +16,15 @@ animated WebGL scenes, and a cursor-tracking project index.
 [![Vitest](https://img.shields.io/badge/Vitest-6E9F18?style=flat-square&logo=vitest&logoColor=white)](https://vitest.dev/)
 [![License](https://img.shields.io/badge/License-Personal_Use-lightgrey?style=flat-square)](#license)
 
+**[View live site →](https://muhammadali-dev-seven.vercel.app)**
+
 [Report a bug](https://github.com/Rappidz456/Portfolio_3D/issues) · [Request a feature](https://github.com/Rappidz456/Portfolio_3D/issues) · [Get in touch](mailto:mohammadali6918773@gmail.com)
 
 </div>
 
 <br/>
+
+**Live:** [muhammadali-dev-seven.vercel.app](https://muhammadali-dev-seven.vercel.app)
 
 ## Overview
 
@@ -188,6 +193,7 @@ under `src/assets`.
 
 <div align="left">
 
+[![Live Site](https://img.shields.io/badge/Live_Site-muhammadali--dev--seven.vercel.app-6D5EF5?style=flat-square&logo=vercel&logoColor=white)](https://muhammadali-dev-seven.vercel.app)
 [![Email](https://img.shields.io/badge/Email-mohammadali6918773%40gmail.com-6D5EF5?style=flat-square&logo=gmail&logoColor=white)](mailto:mohammadali6918773@gmail.com)
 [![GitHub](https://img.shields.io/badge/GitHub-Rappidz456-181717?style=flat-square&logo=github&logoColor=white)](https://github.com/Rappidz456)
 

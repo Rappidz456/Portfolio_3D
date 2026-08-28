@@ -1,7 +1,3 @@
-import { lazy, Suspense } from "react";
-
-const HeroSceneCanvas = lazy(() => import("./canvas/HeroScene"));
-
 /** Headline broken into lines so each can mask its own rise-in. */
 const HEADLINE = [
   [{ text: "Build" }, { text: "bold," }],
@@ -50,13 +46,6 @@ const Hero = () => {
         style={{ animationDelay: "1.8s" }}
         aria-hidden="true"
       />
-
-      {/* Animated 3D rig — drag-free, follows the cursor */}
-      <div className="absolute inset-y-0 right-0 z-0 w-full sm:w-[64%] lg:w-[56%]">
-        <Suspense fallback={null}>
-          <HeroSceneCanvas className="h-full w-full" />
-        </Suspense>
-      </div>
 
       <div className="relative z-10 mx-auto flex min-h-[100svh] w-full max-w-[96rem] flex-col justify-between px-6 pb-10 pt-32 sm:px-10 sm:pb-14 sm:pt-40 lg:px-16">
         <div className="flex-1">

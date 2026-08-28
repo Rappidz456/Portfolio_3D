@@ -16,9 +16,13 @@ import {
 } from "./components";
 import { ThemeProvider } from "./context/ThemeProvider";
 import { ToastProvider } from "./context/ToastProvider";
+import { TechFilterProvider } from "./context/TechFilterProvider";
 
 const ParticleFieldCanvas = lazy(
   () => import("./components/canvas/ParticleField")
+);
+const JourneyGlobeCanvas = lazy(
+  () => import("./components/canvas/JourneyGlobe")
 );
 
 const YEAR = new Date().getFullYear();
@@ -47,31 +51,36 @@ const App = () => {
   return (
     <ThemeProvider>
       <ToastProvider>
-        <BrowserRouter>
-          <div className="relative min-h-screen bg-paper text-ink">
-            {/* Depth layer behind the whole page */}
-            <Suspense fallback={null}>
-              <ParticleFieldCanvas />
-            </Suspense>
+        <TechFilterProvider>
+          <BrowserRouter>
+            <div className="relative min-h-screen bg-paper text-ink">
+              {/* Depth layers behind the whole page */}
+              <Suspense fallback={null}>
+                <ParticleFieldCanvas />
+              </Suspense>
+              <Suspense fallback={null}>
+                <JourneyGlobeCanvas />
+              </Suspense>
 
-            <div className="relative z-10">
-              <ScrollProgress />
-              <Navbar />
-              <main>
-                <Hero />
-                <About />
-                <Works />
-                <Services />
-                <TechMarquee />
-                <Experience />
-                <Feedbacks />
-                <Contact />
-              </main>
-              <Footer />
+              <div className="relative z-10">
+                <ScrollProgress />
+                <Navbar />
+                <main>
+                  <Hero />
+                  <About />
+                  <Works />
+                  <Services />
+                  <TechMarquee />
+                  <Experience />
+                  <Feedbacks />
+                  <Contact />
+                </main>
+                <Footer />
+              </div>
+              <Toaster />
             </div>
-            <Toaster />
-          </div>
-        </BrowserRouter>
+          </BrowserRouter>
+        </TechFilterProvider>
       </ToastProvider>
     </ThemeProvider>
   );

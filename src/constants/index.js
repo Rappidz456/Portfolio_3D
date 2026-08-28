@@ -37,24 +37,38 @@ const services = [
     description:
       "End-to-end product builds on React, Next.js and Node — architecture, REST APIs, auth, real-time features, and the deployment pipeline behind them.",
     icon: web,
+    deliverables: [
+      "Architecture",
+      "REST APIs",
+      "Auth & roles",
+      "Deploy pipeline",
+    ],
   },
   {
     title: "Mobile Applications",
     description:
       "Cross-platform iOS and Android apps in React Native, from offline-first data and push notifications through to store release.",
     icon: mobile,
+    deliverables: [
+      "iOS & Android",
+      "Offline-first data",
+      "Push notifications",
+      "Store release",
+    ],
   },
   {
     title: "AI Integration",
     description:
       "LLM features wired into real products — agents, retrieval, and vision pipelines built on the OpenAI and Anthropic APIs.",
     icon: web,
+    deliverables: ["Agents", "Retrieval", "Vision pipelines", "Evals"],
   },
   {
     title: "Performance & Delivery",
     description:
       "Profiling, refactoring, CI/CD and monitoring for teams that need an existing codebase to get faster and calmer to work in.",
     icon: mobile,
+    deliverables: ["Profiling", "Refactors", "CI/CD", "Monitoring"],
   },
 ];
 
@@ -228,6 +242,7 @@ const projects = [
         color: "pink-text-gradient",
       },
     ],
+    stack: ["Next.js", "React.js", "Node.js", "JavaScript"],
     image: tasky,
     source_code_link: "https://www.tasky.ae/",
   },
@@ -249,6 +264,7 @@ const projects = [
         color: "pink-text-gradient",
       },
     ],
+    stack: ["Next.js", "React.js", "Python", "JavaScript"],
     image: aiSurveillance,
     source_code_link: "https://github.com/Rappidz456",
   },
@@ -270,6 +286,7 @@ const projects = [
         color: "pink-text-gradient",
       },
     ],
+    stack: ["React.js", "JavaScript"],
     image: reminderlink,
     // Play Store icon is square — contain it instead of cropping.
     imageFit: "contain",
@@ -294,6 +311,7 @@ const projects = [
         color: "pink-text-gradient",
       },
     ],
+    stack: ["React.js", "Firebase", "JavaScript"],
     image: fineme,
     source_code_link: "https://github.com/Rappidz456",
   },

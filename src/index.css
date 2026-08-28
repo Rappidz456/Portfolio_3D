@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Instrument+Serif:ital@0;1&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -155,9 +155,10 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
   font-size: 11px;
   font-weight: 500;
-  letter-spacing: 0.24em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--muted);
 }
@@ -194,17 +195,19 @@ body {
 }
 
 .meta-label {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
   font-size: 11px;
   font-weight: 500;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--muted);
 }
 
 .index-num {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
   font-size: 12px;
   font-weight: 500;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.08em;
   color: var(--accent);
   font-variant-numeric: tabular-nums;
 }
@@ -223,7 +226,8 @@ body {
   border: 1px solid var(--line);
   border-radius: 999px;
   padding: 0.3rem 0.75rem;
-  font-size: 12px;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 11.5px;
   font-weight: 400;
   color: var(--ink);
   background: transparent;
@@ -477,6 +481,88 @@ body {
 
 .theme-toggle > * {
   position: relative;
+}
+
+/* ---------------------------------------------------------------
+   Chapter stepper — sticky rail that tracks the active service
+   --------------------------------------------------------------- */
+
+.chapter-rail {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--hairline);
+}
+
+.chapter-step {
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  width: 100%;
+  padding: 0.85rem 0;
+  text-align: left;
+  border-bottom: 1px solid var(--hairline);
+  color: var(--muted);
+  transition: color 0.5s var(--ease);
+}
+
+/* Gradient underline that wipes across the active step */
+.chapter-step::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  height: 1px;
+  width: 100%;
+  background: var(--gradient);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.7s var(--ease);
+}
+
+.chapter-step[data-active="true"] {
+  color: var(--ink);
+}
+
+.chapter-step[data-active="true"]::after {
+  transform: scaleX(1);
+}
+
+.chapter-step__num {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+}
+
+.chapter-step__label {
+  font-family: "Instrument Serif", Georgia, serif;
+  font-size: clamp(1.05rem, 1.6vw, 1.35rem);
+  line-height: 1.2;
+}
+
+.chapter-count {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Middot-separated mono meta line under each service */
+.deliverables {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 10.5px;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.deliverables span + span::before {
+  content: " · ";
+  color: var(--accent);
 }
 
 /* ---------------------------------------------------------------

@@ -1,13 +1,10 @@
-import { lazy, Suspense, useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { motion } from "framer-motion";
 
 import { SectionWrapper } from "../hoc";
-import { useInView } from "../hooks/useInView";
 import { fadeIn, textVariant } from "../utils/motion";
 import { useContactForm } from "../hooks/useContactForm";
 import { useToast } from "../context/ToastProvider";
-
-const GlobeSceneCanvas = lazy(() => import("./canvas/GlobeScene"));
 
 const EMAIL = "mohammadali6918773@gmail.com";
 const PHONE = "+92 331 4835133";
@@ -20,8 +17,6 @@ const Contact = () => {
   const { form, loading, status, handleChange, handleSubmit } =
     useContactForm();
   const { toast } = useToast();
-  const globeRef = useRef(null);
-  const globeVisible = useInView(globeRef, { rootMargin: "200px" });
 
   // The hook reports the send result; surface it as a toast.
   useEffect(() => {
@@ -39,18 +34,6 @@ const Contact = () => {
   return (
     <>
       <div className="relative">
-        {/* Rotating wireframe globe, offset behind the headline */}
-        <div
-          ref={globeRef}
-          className="absolute -top-16 right-0 z-0 hidden h-[26rem] w-[26rem] md:block lg:h-[32rem] lg:w-[32rem]"
-        >
-          {globeVisible ? (
-            <Suspense fallback={null}>
-              <GlobeSceneCanvas className="h-full w-full" />
-            </Suspense>
-          ) : null}
-        </div>
-
         <motion.div variants={textVariant()} className="relative z-10">
           <p className="section-eyebrow">Get in touch</p>
           <h2 className="display-xl mt-8 text-ink">

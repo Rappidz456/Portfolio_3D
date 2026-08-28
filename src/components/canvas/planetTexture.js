@@ -132,3 +132,132 @@ export function createPlanetTexture(color, seedSource) {
   texture.needsUpdate = true;
   return texture;
 }
+
+const WORLD_W = 1024;
+const WORLD_H = 512;
+
+/** Multi-octave blobs read as coastlines far better than one pass of ellipses. */
+function paintLandmasses(ctx, random, land, coast) {
+  const octaves = [
+    { count: 7, rx: 0.16, ry: 0.22, alpha: 0.95, color: land },
+    { count: 16, rx: 0.09, ry: 0.13, alpha: 0.8, color: land },
+    { count: 34, rx: 0.05, ry: 0.07, alpha: 0.6, color: coast },
+    { count: 46, rx: 0.022, ry: 0.03, alpha: 0.45, color: coast },
+  ];
+
+  octaves.forEach((octave) => {
+    for (let i = 0; i < octave.count; i += 1) {
+      // Bias away from the poles so continents cluster in temperate bands.
+      const x = random() * WORLD_W;
+      const y = (0.16 + ((random() + random()) / 2) * 0.68) * WORLD_H;
+      const rx = WORLD_W * octave.rx * (0.55 + random() * 0.9);
+      const ry = WORLD_H * octave.ry * (0.55 + random() * 0.9);
+
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.rotate((random() - 0.5) * 1.6);
+      ctx.beginPath();
+      ctx.ellipse(0, 0, rx, ry, 0, 0, Math.PI * 2);
+      ctx.fillStyle = css(octave.color, octave.alpha);
+      ctx.fill();
+      ctx.restore();
+    }
+  });
+}
+
+/**
+ * A larger, Earth-style world for the hero: oceans, layered continents,
+ * ice caps. Colours are passed in so it can sit inside the site palette
+ * rather than defaulting to literal blue-and-green.
+ */
+export function createWorldTexture({ ocean, land, coast, ice, seed }) {
+  const random = mulberry32(hashString(seed));
+  const oceanRgb = hexToRgb(ocean);
+  const landRgb = hexToRgb(land);
+  const coastRgb = hexToRgb(coast);
+  const iceRgb = hexToRgb(ice);
+
+  const canvas = document.createElement("canvas");
+  canvas.width = WORLD_W;
+  canvas.height = WORLD_H;
+  const ctx = canvas.getContext("2d");
+
+  // Ocean, with a little depth variation so it isn't a flat fill.
+  ctx.fillStyle = css(oceanRgb);
+  ctx.fillRect(0, 0, WORLD_W, WORLD_H);
+  for (let i = 0; i < 22; i += 1) {
+    const x = random() * WORLD_W;
+    const y = random() * WORLD_H;
+    ctx.beginPath();
+    ctx.ellipse(
+      x,
+      y,
+      WORLD_W * (0.06 + random() * 0.16),
+      WORLD_H * (0.05 + random() * 0.14),
+      0,
+      0,
+      Math.PI * 2
+    );
+    ctx.fillStyle = css(shade(oceanRgb, random() > 0.5 ? 0.12 : -0.12), 0.4);
+    ctx.fill();
+  }
+
+  paintLandmasses(ctx, random, landRgb, coastRgb);
+
+  // Ice caps.
+  const capDepth = WORLD_H * 0.13;
+  const north = ctx.createLinearGradient(0, 0, 0, capDepth);
+  north.addColorStop(0, css(iceRgb, 0.98));
+  north.addColorStop(1, css(iceRgb, 0));
+  ctx.fillStyle = north;
+  ctx.fillRect(0, 0, WORLD_W, capDepth);
+
+  const south = ctx.createLinearGradient(0, WORLD_H, 0, WORLD_H - capDepth);
+  south.addColorStop(0, css(iceRgb, 0.98));
+  south.addColorStop(1, css(iceRgb, 0));
+  ctx.fillStyle = south;
+  ctx.fillRect(0, WORLD_H - capDepth, WORLD_W, capDepth);
+
+  const texture = new CanvasTexture(canvas);
+  texture.colorSpace = SRGBColorSpace;
+  texture.anisotropy = 8;
+  texture.needsUpdate = true;
+  return texture;
+}
+
+/**
+ * Transparent cloud sheet for the shell that rotates over the world at a
+ * different rate — the cheapest way to make a globe feel alive.
+ */
+export function createCloudTexture(seed) {
+  const random = mulberry32(hashString(seed));
+
+  const canvas = document.createElement("canvas");
+  canvas.width = WORLD_W;
+  canvas.height = WORLD_H;
+  const ctx = canvas.getContext("2d");
+
+  for (let i = 0; i < 90; i += 1) {
+    const x = random() * WORLD_W;
+    // Banded, like real weather systems.
+    const band = Math.floor(random() * 5);
+    const y = (0.12 + band * 0.19 + (random() - 0.5) * 0.09) * WORLD_H;
+    const rx = WORLD_W * (0.03 + random() * 0.1);
+    const ry = WORLD_H * (0.012 + random() * 0.035);
+
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.rotate((random() - 0.5) * 0.5);
+    ctx.beginPath();
+    ctx.ellipse(0, 0, rx, ry, 0, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(255, 255, 255, ${0.16 + random() * 0.4})`;
+    ctx.fill();
+    ctx.restore();
+  }
+
+  const texture = new CanvasTexture(canvas);
+  texture.colorSpace = SRGBColorSpace;
+  texture.anisotropy = 4;
+  texture.needsUpdate = true;
+  return texture;
+}

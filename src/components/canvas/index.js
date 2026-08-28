@@ -1,11 +1,5 @@
-import HeroSceneCanvas from "./HeroScene";
+import JourneyGlobeCanvas from "./JourneyGlobe";
 import ParticleFieldCanvas from "./ParticleField";
 import TechSpheresCanvas from "./TechSpheres";
-import GlobeSceneCanvas from "./GlobeScene";
 
-export {
-  HeroSceneCanvas,
-  ParticleFieldCanvas,
-  TechSpheresCanvas,
-  GlobeSceneCanvas,
-};
+export { JourneyGlobeCanvas, ParticleFieldCanvas, TechSpheresCanvas };

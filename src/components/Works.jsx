@@ -6,6 +6,7 @@ import { styles } from "../styles";
 import { SectionWrapper } from "../hoc";
 import { projects } from "../constants";
 import { useMediaQuery } from "../hooks/useMediaQuery";
+import { useTechFilter } from "../context/TechFilterProvider";
 import { fadeIn, textVariant } from "../utils/motion";
 
 const SPRING = { stiffness: 220, damping: 28, mass: 0.6 };
@@ -38,13 +39,21 @@ const ProjectPeek = ({ project, x, y }) => (
   </motion.div>
 );
 
-const ProjectRow = ({ project, index, isDesktop, onEnter, onLeave }) => (
+const ProjectRow = ({
+  project,
+  index,
+  isDesktop,
+  dimmed,
+  onEnter,
+  onLeave,
+}) => (
   <motion.a
     variants={fadeIn("up", "tween", index * 0.06, 0.7)}
     href={project.source_code_link}
     target="_blank"
     rel="noopener noreferrer"
-    className="project-row group"
+    className="project-row group transition-opacity duration-500 ease-editorial"
+    style={{ opacity: dimmed ? 0.3 : 1 }}
     onMouseEnter={() => onEnter(project)}
     onMouseLeave={onLeave}
   >
@@ -94,6 +103,11 @@ const ProjectRow = ({ project, index, isDesktop, onEnter, onLeave }) => (
 const Works = () => {
   const isDesktop = useMediaQuery("(min-width: 768px)");
   const [hovered, setHovered] = useState(null);
+  const { selected, clear } = useTechFilter();
+
+  const matches = (project) =>
+    !selected || (project.stack ?? []).includes(selected);
+  const matchCount = projects.filter(matches).length;
 
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -135,6 +149,30 @@ const Works = () => {
         </p>
       </motion.div>
 
+      {selected ? (
+        <div className="mt-10 flex flex-wrap items-center gap-4 border-y border-[color:var(--hairline)] py-4">
+          <span className="meta-label">Filtered by</span>
+          <span className="tag-pill">{selected}</span>
+          <span className="chapter-count">
+            {String(matchCount).padStart(2, "0")} of{" "}
+            {String(projects.length).padStart(2, "0")}
+          </span>
+          <button
+            type="button"
+            onClick={clear}
+            className="link-underline ml-auto text-[13px] font-light text-grey transition-colors duration-300 hover:text-ink"
+          >
+            Clear filter
+          </button>
+        </div>
+      ) : null}
+
+      {selected && matchCount === 0 ? (
+        <p className="mt-8 text-[14px] font-light text-grey">
+          Nothing tagged with {selected} in the projects above yet.
+        </p>
+      ) : null}
+
       <div className="mt-14" onMouseMove={handleMouseMove}>
         {projects.map((project, index) => (
           <ProjectRow
@@ -142,6 +180,7 @@ const Works = () => {
             project={project}
             index={index}
             isDesktop={isDesktop}
+            dimmed={!matches(project)}
             onEnter={handleEnter}
             onLeave={handleLeave}
           />

@@ -63,7 +63,7 @@ const Navbar = () => {
               <li key={link.id}>
                 <a
                   href={`#${link.id}`}
-                  className="link-underline text-[14px] font-light text-grey transition-colors duration-300 hover:text-ink"
+                  className="link-underline text-[14px] font-normal text-grey transition-colors duration-300 hover:text-ink"
                 >
                   {link.title}
                 </a>
@@ -74,7 +74,7 @@ const Navbar = () => {
           <div className="hidden items-center gap-7 md:flex">
             <a
               href={PHONE_HREF}
-              className="link-underline text-[13px] font-light tracking-wide text-grey transition-colors duration-300 hover:text-ink"
+              className="link-underline text-[13px] font-normal tracking-wide text-grey transition-colors duration-300 hover:text-ink"
             >
               {PHONE}
             </a>
@@ -131,7 +131,7 @@ const Navbar = () => {
 
           <div className="mt-auto flex flex-col gap-2">
             <span className="meta-label">Direct</span>
-            <a href={PHONE_HREF} className="text-[15px] font-light text-ink">
+            <a href={PHONE_HREF} className="text-[15px] font-normal text-ink">
               {PHONE}
             </a>
           </div>

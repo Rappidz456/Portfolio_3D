@@ -20,7 +20,7 @@
   --c-surface: 246 243 241;
   --c-raised: 255 255 255;
   --c-ink: 10 9 9;
-  --c-muted: 112 112 112;
+  --c-muted: 90 88 86;
   --c-accent: 226 84 44;
   --c-accent2: 108 75 255;
   --c-clay: 156 100 85;
@@ -40,7 +40,7 @@
   --c-surface: 21 19 23;
   --c-raised: 27 24 29;
   --c-ink: 247 243 240;
-  --c-muted: 154 146 152;
+  --c-muted: 181 174 180;
   --c-accent: 255 106 61;
   --c-accent2: 138 110 255;
   --c-clay: 224 150 124;
@@ -81,7 +81,8 @@ body {
   background: var(--paper);
   color: var(--ink);
   font-family: "DM Sans", system-ui, sans-serif;
-  font-weight: 300;
+  /* 300 was too thin to read comfortably over the moving 3D background. */
+  font-weight: 400;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   transition:
@@ -179,16 +180,16 @@ body {
 }
 
 .section-copy {
-  font-size: clamp(1rem, 1.35vw, 1.15rem);
-  font-weight: 300;
-  line-height: 1.65;
+  font-size: clamp(1.02rem, 1.35vw, 1.18rem);
+  font-weight: 400;
+  line-height: 1.7;
   color: var(--muted);
   max-width: 46rem;
 }
 
 .lede {
   font-size: clamp(1.3rem, 2.3vw, 1.95rem);
-  font-weight: 300;
+  font-weight: 400;
   line-height: 1.4;
   letter-spacing: -0.015em;
   color: var(--ink);

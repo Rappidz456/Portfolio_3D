@@ -25,7 +25,7 @@ const FeedbackCard = ({ index, testimonial, name, designation, company }) => (
 
     <figcaption className="mt-8 border-t border-[color:var(--hairline)] pt-5">
       <p className="text-[14px] font-normal text-ink">{name}</p>
-      <p className="mt-1 text-[12px] font-light text-grey">
+      <p className="mt-1 text-[12px] font-normal text-grey">
         {designation} · {company}
       </p>
     </figcaption>

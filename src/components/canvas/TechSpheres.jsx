@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
-import { Decal } from "@react-three/drei";
+import { Billboard } from "@react-three/drei";
 import {
   BackSide,
   CanvasTexture,
@@ -28,13 +28,19 @@ const ACCENT_LIGHT = "#6C4BFF";
  * Positions are computed per frame, which keeps every planet's own orientation
  * independent of where it sits on its orbit.
  */
+/*
+ * Counts rise with radius so the arc gap between neighbours stays even
+ * (~5.4 / 6.2 / 5.7 world units), and the 2.3 gap between rings comfortably
+ * clears a 1.5-unit planet so orbits never crowd each other.
+ */
 const RINGS = [
-  { count: 5, radius: 3.1, period: 18, direction: 1 },
-  { count: 6, radius: 5.0, period: 24, direction: -1 },
-  { count: 5, radius: 6.8, period: 30, direction: 1 },
+  { count: 3, radius: 2.6, period: 18, direction: 1 },
+  { count: 5, radius: 4.9, period: 24, direction: -1 },
+  { count: 8, radius: 7.2, period: 30, direction: 1 },
 ];
 
-const ORBIT_TILT = 0.85;
+const ORBIT_TILT = 0.9;
+const PLANET_RADIUS = 0.75;
 const OUTER_RADIUS = RINGS[RINGS.length - 1].radius;
 
 /** Picks black or white for the mark so it stays legible on any brand tone. */
@@ -100,7 +106,7 @@ function createMarkTexture(technology) {
 }
 
 /** Assigns every technology to a ring slot up front. */
-function buildOrbits(count) {
+function buildOrbits(count, radiusScale = 1) {
   const slots = [];
   let index = 0;
 
@@ -109,7 +115,7 @@ function buildOrbits(count) {
     for (let i = 0; i < take; i += 1) {
       slots.push({
         ring: ringIndex,
-        radius: ring.radius,
+        radius: ring.radius * radiusScale,
         period: ring.period,
         direction: ring.direction,
         phase: (i / take) * Math.PI * 2,
@@ -122,7 +128,7 @@ function buildOrbits(count) {
   while (index < count) {
     slots.push({
       ring: RINGS.length,
-      radius: OUTER_RADIUS + 1.7,
+      radius: (OUTER_RADIUS + 2.3) * radiusScale,
       period: 36,
       direction: -1,
       phase:
@@ -202,7 +208,7 @@ const Planet = ({
             document.body.style.cursor = "";
           }}
         >
-          <sphereGeometry args={[0.62, 48, 48]} />
+          <sphereGeometry args={[PLANET_RADIUS, 48, 48]} />
           <meshStandardMaterial
             map={surface}
             roughness={0.78}
@@ -212,19 +218,32 @@ const Planet = ({
             emissive={tech.color}
             emissiveIntensity={selected ? 0.5 : isDark ? 0.14 : 0.04}
           />
-          <Decal
-            position={[0, 0, 1]}
-            rotation={[0, 0, 0]}
-            scale={0.85}
-            map={map}
-            transparent
-            polygonOffset
-            polygonOffsetFactor={-10}
-          />
         </mesh>
 
+        {/*
+          The mark used to be projected onto the sphere as a decal, which meant
+          it rotated away with the planet and was only readable for part of each
+          spin. A camera-facing plane keeps every logo legible at all times.
+          It sits just in front of the surface so normal depth testing still
+          hides it behind planets that pass in front.
+        */}
+        <Billboard>
+          <mesh position={[0, 0, PLANET_RADIUS + 0.02]}>
+            <planeGeometry
+              args={[PLANET_RADIUS * 1.35, PLANET_RADIUS * 1.35]}
+            />
+            <meshBasicMaterial
+              map={map}
+              transparent
+              opacity={opacity}
+              depthWrite={false}
+              toneMapped={false}
+            />
+          </mesh>
+        </Billboard>
+
         <mesh scale={selected ? 1.28 : 1.1}>
-          <sphereGeometry args={[0.62, 24, 24]} />
+          <sphereGeometry args={[PLANET_RADIUS, 24, 24]} />
           <meshBasicMaterial
             color={selected ? tech.color : isDark ? ACCENT_DARK : ACCENT_LIGHT}
             transparent
@@ -252,13 +271,17 @@ const OrbitLine = ({ radius, color, opacity }) => (
   </mesh>
 );
 
-const FitToViewport = ({ width, height, children }) => {
+/**
+ * Uniformly scales children to fit the current R3F viewport.
+ * `padding` < 1 leaves margin so orbiting bodies don't kiss the clip edge.
+ */
+const FitToViewport = ({ width, height, padding = 0.78, children }) => {
   const viewport = useThree((state) => state.viewport);
 
   const scale = useMemo(() => {
     const fit = Math.min(viewport.width / width, viewport.height / height);
-    return fit * 0.94;
-  }, [viewport.width, viewport.height, width, height]);
+    return fit * padding;
+  }, [viewport.width, viewport.height, width, height, padding]);
 
   return <group scale={scale}>{children}</group>;
 };
@@ -288,6 +311,7 @@ const OrbitSystem = ({
   technologies,
   isDark,
   reduced,
+  compact,
   selected,
   filterable,
   onSelect,
@@ -314,9 +338,10 @@ const OrbitSystem = ({
   );
   useEffect(() => () => marks.forEach((texture) => texture.dispose()), [marks]);
 
+  // Tighter orbits on narrow screens so the system still fills the frame.
   const orbits = useMemo(
-    () => buildOrbits(technologies.length),
-    [technologies.length]
+    () => buildOrbits(technologies.length, compact ? 0.85 : 1),
+    [technologies.length, compact]
   );
 
   const ringRadii = useMemo(
@@ -325,38 +350,53 @@ const OrbitSystem = ({
   );
 
   const lineColor = isDark ? ACCENT_DARK : ACCENT_LIGHT;
-  const extent = Math.max(...ringRadii) + 0.85;
+  // Planets grow to 1.35x when hovered or selected, so the bounds have to
+  // budget for that or the outermost ones clip against the canvas edge.
+  const maxRadius = Math.max(...ringRadii);
+  const bodyRoom = PLANET_RADIUS * 1.28;
+  // Camera sits on +Z. On a tilted ring the "top" of the orbit moves toward
+  // the camera, so those planets project larger than their z=0 footprint and
+  // used to clip the top of the canvas. Scale the vertical budget by that
+  // perspective factor so FitToViewport leaves real headroom.
+  const cameraZ = 14;
+  const nearZ = maxRadius * Math.sin(ORBIT_TILT);
+  const perspectiveBoost = cameraZ / Math.max(4, cameraZ - nearZ);
+  const boundsWidth = (maxRadius + bodyRoom) * 2;
+  const boundsHeight =
+    (maxRadius * Math.cos(ORBIT_TILT) + bodyRoom) * 2 * perspectiveBoost;
+  // Nudge the system slightly down so the magnified near-side (top) of the
+  // tilt has more visible clearance than the far-side (bottom).
+  const verticalBias = -maxRadius * Math.sin(ORBIT_TILT) * 0.04;
 
   return (
-    <FitToViewport
-      width={extent * 2}
-      height={(extent * Math.cos(ORBIT_TILT) + 0.85) * 2}
-    >
-      <group rotation={[ORBIT_TILT, 0, 0]}>
-        {ringRadii.map((radius) => (
-          <OrbitLine
-            key={radius}
-            radius={radius}
-            color={lineColor}
-            opacity={isDark ? 0.22 : 0.16}
-          />
-        ))}
+    <FitToViewport width={boundsWidth} height={boundsHeight} padding={0.96}>
+      <group position={[0, verticalBias, 0]}>
+        <group rotation={[ORBIT_TILT, 0, 0]}>
+          {ringRadii.map((radius) => (
+            <OrbitLine
+              key={radius}
+              radius={radius}
+              color={lineColor}
+              opacity={isDark ? 0.22 : 0.16}
+            />
+          ))}
 
-        {technologies.map((technology, index) => (
-          <Planet
-            key={technology.name}
-            tech={technology}
-            map={marks[index]}
-            surface={surfaces[index]}
-            orbit={orbits[index]}
-            isDark={isDark}
-            reduced={reduced}
-            selected={selected === technology.name}
-            dimmed={Boolean(selected) && selected !== technology.name}
-            interactive={!filterable || filterable.has(technology.name)}
-            onSelect={onSelect}
-          />
-        ))}
+          {technologies.map((technology, index) => (
+            <Planet
+              key={technology.name}
+              tech={technology}
+              map={marks[index]}
+              surface={surfaces[index]}
+              orbit={orbits[index]}
+              isDark={isDark}
+              reduced={reduced}
+              selected={selected === technology.name}
+              dimmed={Boolean(selected) && selected !== technology.name}
+              interactive={!filterable || filterable.has(technology.name)}
+              onSelect={onSelect}
+            />
+          ))}
+        </group>
       </group>
     </FitToViewport>
   );
@@ -405,6 +445,7 @@ const TechSpheresCanvas = ({
         technologies={technologies}
         isDark={isDark}
         reduced={reduced}
+        compact={isSmall}
         selected={selected}
         filterable={filterable}
         onSelect={onSelect}

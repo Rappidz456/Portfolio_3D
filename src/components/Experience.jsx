@@ -16,7 +16,7 @@ const ExperienceRow = ({ experience, index }) => (
       </span>
       <div>
         <h3 className="display-md text-ink">{experience.title}</h3>
-        <p className="mt-2 flex items-center gap-2.5 text-[14px] font-light text-grey">
+        <p className="mt-2 flex items-center gap-2.5 text-[14px] font-normal text-grey">
           <img
             src={experience.icon}
             alt=""
@@ -29,7 +29,7 @@ const ExperienceRow = ({ experience, index }) => (
       </div>
     </div>
 
-    <p className="text-[13px] font-light tracking-wide text-clay md:col-span-3 md:pt-2">
+    <p className="text-[13px] font-normal tracking-wide text-clay md:col-span-3 md:pt-2">
       {experience.date}
     </p>
 
@@ -37,7 +37,7 @@ const ExperienceRow = ({ experience, index }) => (
       {experience.points.map((point, pointIndex) => (
         <li
           key={`${experience.company_name}-${pointIndex}`}
-          className="flex gap-3 text-[14px] font-light leading-relaxed text-grey"
+          className="flex gap-3 text-[14px] font-normal leading-relaxed text-grey"
         >
           <span className="mt-2 h-px w-3 shrink-0 bg-sand" aria-hidden="true" />
           <span>{point}</span>
@@ -58,7 +58,7 @@ const Experience = () => {
           <p className={styles.sectionSubText}>Career</p>
           <h2 className={`${styles.sectionHeadText} mt-6`}>Experience</h2>
         </div>
-        <p className="max-w-xs text-[14px] font-light leading-relaxed text-grey">
+        <p className="max-w-xs text-[14px] font-normal leading-relaxed text-grey">
           Where I&apos;ve worked, and what I was responsible for shipping.
         </p>
       </motion.div>

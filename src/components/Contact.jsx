@@ -11,7 +11,7 @@ const PHONE = "+92 331 4835133";
 const PHONE_HREF = "tel:+923314835133";
 
 const fieldClass =
-  "w-full border-0 border-b border-[color:var(--line)] bg-transparent pb-3 pt-2 text-[16px] font-light text-ink outline-none transition-colors duration-300 placeholder:text-grey/60 focus:border-clay";
+  "w-full border-0 border-b border-[color:var(--line)] bg-transparent pb-3 pt-2 text-[16px] font-normal text-ink outline-none transition-colors duration-300 placeholder:text-grey/60 focus:border-clay";
 
 const Contact = () => {
   const { form, loading, status, handleChange, handleSubmit } =
@@ -61,7 +61,7 @@ const Contact = () => {
               <dd className="mt-2">
                 <a
                   href={`mailto:${EMAIL}`}
-                  className="link-underline text-[16px] font-light text-ink"
+                  className="link-underline text-[16px] font-normal text-ink"
                 >
                   {EMAIL}
                 </a>
@@ -72,7 +72,7 @@ const Contact = () => {
               <dd className="mt-2">
                 <a
                   href={PHONE_HREF}
-                  className="link-underline text-[16px] font-light text-ink"
+                  className="link-underline text-[16px] font-normal text-ink"
                 >
                   {PHONE}
                 </a>
@@ -85,7 +85,7 @@ const Contact = () => {
                   href="https://github.com/Rappidz456"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="link-underline text-[16px] font-light text-ink"
+                  className="link-underline text-[16px] font-normal text-ink"
                 >
                   GitHub
                 </a>

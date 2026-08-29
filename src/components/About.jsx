@@ -50,7 +50,7 @@ const About = () => {
           {FACTS.map((fact) => (
             <div key={fact.label} className="hairline py-5 first:border-t-0">
               <dt className="meta-label">{fact.label}</dt>
-              <dd className="mt-2 text-[15px] font-light leading-relaxed text-ink">
+              <dd className="mt-2 text-[15px] font-normal leading-relaxed text-ink">
                 {fact.value}
               </dd>
             </div>

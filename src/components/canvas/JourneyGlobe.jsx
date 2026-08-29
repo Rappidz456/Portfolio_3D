@@ -24,7 +24,9 @@ const WAYPOINTS = [
   { id: "hero", xFrac: 0.26, y: 0.0, z: 0.0, scale: 1.0 },
   { id: "about", xFrac: -0.3, y: 0.25, z: -1.6, scale: 0.6 },
   { id: "projects", xFrac: 0.33, y: -0.3, z: -2.6, scale: 0.48 },
-  { id: "services", xFrac: -0.28, y: 0.35, z: -3.4, scale: 0.42 },
+  // Services owns the orbit system, so the travelling world retreats to the
+  // far corner here instead of colliding with the technology planets.
+  { id: "services", xFrac: -0.44, y: 0.62, z: -6.5, scale: 0.24 },
   { id: "work", xFrac: 0.3, y: 0.0, z: -2.2, scale: 0.52 },
   { id: "testimonials", xFrac: -0.32, y: 0.2, z: -2.6, scale: 0.5 },
   { id: "contact", xFrac: 0.22, y: -0.15, z: -0.6, scale: 0.85 },
@@ -345,7 +347,12 @@ const JourneyGlobeCanvas = () => {
   const palette = isDark ? PALETTE.dark : PALETTE.light;
 
   return (
-    <div className="pointer-events-none fixed inset-0 z-[1]" aria-hidden="true">
+    // Held well under full strength: the page text sits directly on top of
+    // this, and a full-brightness globe made body copy hard to read.
+    <div
+      className="pointer-events-none fixed inset-0 z-[1] opacity-[0.55]"
+      aria-hidden="true"
+    >
       <CanvasShell
         className="h-full w-full"
         frameloop="always"

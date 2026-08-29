@@ -79,7 +79,7 @@ const ProjectRow = ({
 
       <div className="project-row__title min-w-0 flex-1">
         <h3 className="display-md text-ink">{project.name}</h3>
-        <p className="mt-3 max-w-xl text-[14px] font-light leading-relaxed text-grey">
+        <p className="mt-3 max-w-xl text-[14px] font-normal leading-relaxed text-grey">
           {project.description}
         </p>
       </div>
@@ -143,7 +143,7 @@ const Works = () => {
           <p className={styles.sectionSubText}>Selected work</p>
           <h2 className={`${styles.sectionHeadText} mt-6`}>Projects</h2>
         </div>
-        <p className="max-w-xs text-[14px] font-light leading-relaxed text-grey">
+        <p className="max-w-xs text-[14px] font-normal leading-relaxed text-grey">
           A few products I&apos;ve designed, built, and shipped — across web,
           mobile, and AI systems.
         </p>
@@ -160,7 +160,7 @@ const Works = () => {
           <button
             type="button"
             onClick={clear}
-            className="link-underline ml-auto text-[13px] font-light text-grey transition-colors duration-300 hover:text-ink"
+            className="link-underline ml-auto text-[13px] font-normal text-grey transition-colors duration-300 hover:text-ink"
           >
             Clear filter
           </button>
@@ -168,7 +168,7 @@ const Works = () => {
       ) : null}
 
       {selected && matchCount === 0 ? (
-        <p className="mt-8 text-[14px] font-light text-grey">
+        <p className="mt-8 text-[14px] font-normal text-grey">
           Nothing tagged with {selected} in the projects above yet.
         </p>
       ) : null}

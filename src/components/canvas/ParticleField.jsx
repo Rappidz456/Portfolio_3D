@@ -75,7 +75,10 @@ const ParticleFieldCanvas = () => {
   const color = isDark ? "#8A6EFF" : "#9C6455";
 
   return (
-    <div className="pointer-events-none fixed inset-0 z-0" aria-hidden="true">
+    <div
+      className="pointer-events-none fixed inset-0 z-0 opacity-70"
+      aria-hidden="true"
+    >
       <CanvasShell
         className="h-full w-full"
         frameloop={reduced ? "demand" : "always"}

@@ -93,12 +93,12 @@ const Hero = () => {
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-60" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-accent" />
               </span>
-              <span className="text-[13px] font-light text-grey">
+              <span className="text-[13px] font-normal text-grey">
                 Available for work
               </span>
             </span>
 
-            <span className="text-[13px] font-light text-grey">
+            <span className="text-[13px] font-normal text-grey">
               4+ years shipping production software
             </span>
           </div>

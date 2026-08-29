@@ -41,18 +41,30 @@ const TechSpheres = () => {
   };
 
   return (
-    <div ref={ref} className="mt-16 h-[30rem] w-full sm:h-[34rem] lg:h-[38rem]">
-      {isVisible ? (
-        <Suspense fallback={null}>
-          <TechSpheresCanvas
-            technologies={technologies}
-            selected={selected}
-            filterable={filterable}
-            onSelect={handleSelect}
-            className="h-full w-full"
-          />
-        </Suspense>
-      ) : null}
+    <div className="mt-24 border-t border-[color:var(--hairline)] pt-14 sm:mt-32 sm:pt-16">
+      <div className="flex flex-wrap items-end justify-between gap-4">
+        <p className="meta-label">The stack</p>
+        <p className="text-[13px] text-grey">
+          Select a technology to filter the work
+        </p>
+      </div>
+
+      <div
+        ref={ref}
+        className="relative mt-8 h-[48rem] w-full overflow-visible sm:h-[58rem] lg:h-[70rem]"
+      >
+        {isVisible ? (
+          <Suspense fallback={null}>
+            <TechSpheresCanvas
+              technologies={technologies}
+              selected={selected}
+              filterable={filterable}
+              onSelect={handleSelect}
+              className="absolute inset-0 h-full w-full"
+            />
+          </Suspense>
+        ) : null}
+      </div>
     </div>
   );
 };

@@ -11,13 +11,13 @@ import {
 function getSendErrorMessage(error) {
   if (!error) return "Unknown error";
   if (typeof error === "string") return error;
-  if (error.text) return error.text;
-  if (error.message) return error.message;
-  try {
-    return JSON.stringify(error);
-  } catch {
-    return "Unknown error";
-  }
+  return error.text ?? error.message ?? (() => {
+    try {
+      return JSON.stringify(error);
+    } catch (error) {
+      return "Unknown error";
+    }
+  })();
 }
 
 /**

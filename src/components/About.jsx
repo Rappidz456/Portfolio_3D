@@ -1,21 +1,15 @@
 import { motion } from "framer-motion";
 
-import { styles } from "../styles";
 import { SectionWrapper } from "../hoc";
+import { aboutFacts } from "../constants";
 import { fadeIn, textVariant } from "../utils/motion";
-
-const FACTS = [
-  { label: "Based in", value: "Lahore, Pakistan — working worldwide" },
-  { label: "Focus", value: "Web & cross-platform product engineering" },
-  { label: "Experience", value: "4+ years" },
-  { label: "Currently", value: "Software Engineer at Wisdom IT Solutions" },
-];
+import MetaList from "./ui/MetaList";
 
 const About = () => {
   return (
     <>
       <motion.div variants={textVariant()}>
-        <p className={styles.sectionSubText}>Introduction</p>
+        <p className="section-eyebrow">Introduction</p>
       </motion.div>
 
       <div className="mt-10 grid gap-14 md:grid-cols-12 md:gap-10">
@@ -43,19 +37,12 @@ const About = () => {
           </p>
         </motion.div>
 
-        <motion.dl
+        <motion.div
           variants={fadeIn("up", "tween", 0.25, 0.8)}
           className="md:col-span-5 md:pl-6 lg:pl-14"
         >
-          {FACTS.map((fact) => (
-            <div key={fact.label} className="hairline py-5 first:border-t-0">
-              <dt className="meta-label">{fact.label}</dt>
-              <dd className="mt-2 text-[15px] font-normal leading-relaxed text-ink">
-                {fact.value}
-              </dd>
-            </div>
-          ))}
-        </motion.dl>
+          <MetaList items={aboutFacts} />
+        </motion.div>
       </div>
     </>
   );

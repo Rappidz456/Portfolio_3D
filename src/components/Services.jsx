@@ -1,7 +1,6 @@
-import { lazy, Suspense, useEffect, useMemo, useRef, useState } from "react";
+import { lazy, Suspense, useMemo, useRef } from "react";
 import { motion } from "framer-motion";
 
-import { styles } from "../styles";
 import { SectionWrapper } from "../hoc";
 import {
   projects,
@@ -10,12 +9,15 @@ import {
   technologies,
 } from "../constants";
 import { useInView } from "../hooks/useInView";
+import { useActiveChapter } from "../hooks/useActiveChapter";
 import { useTechFilter } from "../context/TechFilterProvider";
-import { fadeIn, textVariant } from "../utils/motion";
+import { fadeIn } from "../utils/motion";
+import { padIndex } from "../utils/format";
+import SectionHeader from "./ui/SectionHeader";
+import TagList from "./ui/TagList";
+import LazyMount from "./ui/LazyMount";
 
 const TechSpheresCanvas = lazy(() => import("./canvas/TechSpheres"));
-
-const pad = (value) => String(value + 1).padStart(2, "0");
 
 /** Floating, spinning 3D planets — one canvas, mounted only when in view. */
 const TechSpheres = () => {
@@ -53,7 +55,7 @@ const TechSpheres = () => {
         ref={ref}
         className="relative mt-8 h-[48rem] w-full overflow-visible sm:h-[58rem] lg:h-[70rem]"
       >
-        {isVisible ? (
+        <LazyMount when={isVisible}>
           <Suspense fallback={null}>
             <TechSpheresCanvas
               technologies={technologies}
@@ -63,44 +65,11 @@ const TechSpheres = () => {
               className="absolute inset-0 h-full w-full"
             />
           </Suspense>
-        ) : null}
+        </LazyMount>
       </div>
     </div>
   );
 };
-
-/**
- * Tracks which service block is currently centred in the viewport.
- * Drives the sticky rail without re-rendering on every scroll frame.
- */
-function useActiveChapter(count) {
-  const [active, setActive] = useState(0);
-  const itemRefs = useRef([]);
-
-  useEffect(() => {
-    const nodes = itemRefs.current.filter(Boolean);
-    if (!nodes.length || typeof IntersectionObserver === "undefined") return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        // Pick the entry closest to the middle of the viewport.
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-
-        if (!visible.length) return;
-        const index = nodes.indexOf(visible[0].target);
-        if (index >= 0) setActive(index);
-      },
-      { rootMargin: "-40% 0px -40% 0px", threshold: [0, 0.25, 0.5, 1] }
-    );
-
-    nodes.forEach((node) => observer.observe(node));
-    return () => observer.disconnect();
-  }, [count]);
-
-  return { active, itemRefs };
-}
 
 const ServiceBlock = ({ service, index, innerRef, isActive }) => (
   <motion.article
@@ -109,7 +78,7 @@ const ServiceBlock = ({ service, index, innerRef, isActive }) => (
     className="border-t border-[color:var(--hairline)] py-10 first:border-t-0 sm:py-14"
   >
     <div className="flex items-baseline gap-4">
-      <span className="index-num">{pad(index)}</span>
+      <span className="index-num">{padIndex(index)}</span>
       <span
         className={`h-px flex-1 transition-colors duration-700 ease-editorial ${
           isActive ? "bg-accent" : "bg-[color:var(--hairline)]"
@@ -138,14 +107,12 @@ const Services = () => {
         {/* Sticky rail — pins while the service blocks scroll past */}
         <div className="lg:col-span-5">
           <div className="lg:sticky lg:top-32">
-            <motion.div variants={textVariant()}>
-              <p className={styles.sectionSubText}>What I do</p>
-              <h2 className={`${styles.sectionHeadText} mt-6`}>Services</h2>
-            </motion.div>
+            <SectionHeader eyebrow="What I do" title="Services" />
 
             <div className="mt-8 flex items-center gap-3">
               <span className="chapter-count">
-                {pad(active)} &nbsp;/&nbsp; {pad(services.length - 1)}
+                {padIndex(active)} &nbsp;/&nbsp;{" "}
+                {padIndex(services.length - 1)}
               </span>
             </div>
 
@@ -164,7 +131,7 @@ const Services = () => {
                     })
                   }
                 >
-                  <span className="chapter-step__num">{pad(index)}</span>
+                  <span className="chapter-step__num">{padIndex(index)}</span>
                   <span className="chapter-step__label">{service.title}</span>
                 </button>
               ))}
@@ -198,13 +165,7 @@ const Services = () => {
               <h3 className="font-display text-[19px] text-clay">
                 {category.title}
               </h3>
-              <div className="mt-3 flex flex-wrap gap-2">
-                {category.skills.map((skill) => (
-                  <span key={skill} className="tag-pill">
-                    {skill}
-                  </span>
-                ))}
-              </div>
+              <TagList tags={category.skills} className="mt-3" />
             </div>
           ))}
         </div>

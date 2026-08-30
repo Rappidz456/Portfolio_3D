@@ -2,16 +2,12 @@ import { useEffect } from "react";
 import { motion } from "framer-motion";
 
 import { SectionWrapper } from "../hoc";
+import { site } from "../constants/site";
 import { fadeIn, textVariant } from "../utils/motion";
 import { useContactForm } from "../hooks/useContactForm";
 import { useToast } from "../context/ToastProvider";
-
-const EMAIL = "mohammadali6918773@gmail.com";
-const PHONE = "+92 331 4835133";
-const PHONE_HREF = "tel:+923314835133";
-
-const fieldClass =
-  "w-full border-0 border-b border-[color:var(--line)] bg-transparent pb-3 pt-2 text-[16px] font-normal text-ink outline-none transition-colors duration-300 placeholder:text-grey/60 focus:border-clay";
+import MetaList, { MetaRow } from "./ui/MetaList";
+import FormField from "./ui/FormField";
 
 const Contact = () => {
   const { form, loading, status, handleChange, handleSubmit } =
@@ -55,43 +51,34 @@ const Contact = () => {
             back to you.
           </p>
 
-          <dl className="mt-12">
-            <div className="hairline py-5 first:border-t-0">
-              <dt className="meta-label">Email</dt>
-              <dd className="mt-2">
-                <a
-                  href={`mailto:${EMAIL}`}
-                  className="link-underline text-[16px] font-normal text-ink"
-                >
-                  {EMAIL}
-                </a>
-              </dd>
-            </div>
-            <div className="hairline py-5">
-              <dt className="meta-label">Phone</dt>
-              <dd className="mt-2">
-                <a
-                  href={PHONE_HREF}
-                  className="link-underline text-[16px] font-normal text-ink"
-                >
-                  {PHONE}
-                </a>
-              </dd>
-            </div>
-            <div className="hairline py-5">
-              <dt className="meta-label">Elsewhere</dt>
-              <dd className="mt-2 flex flex-wrap gap-5">
-                <a
-                  href="https://github.com/Rappidz456"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="link-underline text-[16px] font-normal text-ink"
-                >
-                  GitHub
-                </a>
-              </dd>
-            </div>
-          </dl>
+          <MetaList className="mt-12">
+            <MetaRow label="Email">
+              <a
+                href={`mailto:${site.email}`}
+                className="link-underline text-[16px] font-normal text-ink"
+              >
+                {site.email}
+              </a>
+            </MetaRow>
+            <MetaRow label="Phone">
+              <a
+                href={site.phoneHref}
+                className="link-underline text-[16px] font-normal text-ink"
+              >
+                {site.phone}
+              </a>
+            </MetaRow>
+            <MetaRow label="Elsewhere">
+              <a
+                href={site.githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="link-underline text-[16px] font-normal text-ink"
+              >
+                {site.githubLabel}
+              </a>
+            </MetaRow>
+          </MetaList>
         </motion.div>
 
         <motion.form
@@ -99,44 +86,32 @@ const Contact = () => {
           onSubmit={handleSubmit}
           className="flex flex-col gap-9 lg:col-span-6 lg:col-start-7"
         >
-          <label className="flex flex-col gap-1">
-            <span className="meta-label">01 / Your name</span>
-            <input
-              type="text"
-              name="name"
-              value={form.name}
-              onChange={handleChange}
-              placeholder="Jane Doe"
-              required
-              className={fieldClass}
-            />
-          </label>
-
-          <label className="flex flex-col gap-1">
-            <span className="meta-label">02 / Email</span>
-            <input
-              type="email"
-              name="email"
-              value={form.email}
-              onChange={handleChange}
-              placeholder="jane@company.com"
-              required
-              className={fieldClass}
-            />
-          </label>
-
-          <label className="flex flex-col gap-1">
-            <span className="meta-label">03 / Project</span>
-            <textarea
-              rows={5}
-              name="message"
-              value={form.message}
-              onChange={handleChange}
-              placeholder="Tell me about what you're building"
-              required
-              className={`${fieldClass} resize-none`}
-            />
-          </label>
+          <FormField
+            label="01 / Your name"
+            name="name"
+            value={form.name}
+            onChange={handleChange}
+            placeholder="Jane Doe"
+            required
+          />
+          <FormField
+            label="02 / Email"
+            name="email"
+            type="email"
+            value={form.email}
+            onChange={handleChange}
+            placeholder="jane@company.com"
+            required
+          />
+          <FormField
+            label="03 / Project"
+            name="message"
+            type="textarea"
+            value={form.message}
+            onChange={handleChange}
+            placeholder="Tell me about what you're building"
+            required
+          />
 
           <button
             type="submit"

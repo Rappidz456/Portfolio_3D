@@ -1,22 +1,15 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
+import { site } from "../constants/site";
+import { useScrollThreshold, useBodyScrollLock } from "../hooks";
+import { padIndex } from "../utils/format";
 import ThemeToggle from "./ThemeToggle";
-
-const LINKS = [
-  { id: "about", title: "About" },
-  { id: "projects", title: "Work" },
-  { id: "services", title: "Services" },
-  { id: "work", title: "Experience" },
-];
-
-const PHONE = "+92 331 4835133";
-const PHONE_HREF = "tel:+923314835133";
 
 const LogoMark = () => (
   <span className="flex items-baseline gap-2">
     <span className="font-display text-[22px] leading-none tracking-tight text-ink">
-      Muhammad Ali
+      {site.name}
     </span>
     <span className="h-1.5 w-1.5 rounded-full bg-clay" aria-hidden="true" />
   </span>
@@ -24,21 +17,8 @@ const LogoMark = () => (
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  useEffect(() => {
-    document.body.style.overflow = menuOpen ? "hidden" : "";
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [menuOpen]);
+  const scrolled = useScrollThreshold(24);
+  useBodyScrollLock(menuOpen);
 
   return (
     <>
@@ -59,7 +39,7 @@ const Navbar = () => {
           </Link>
 
           <ul className="hidden list-none items-center gap-9 md:flex">
-            {LINKS.map((link) => (
+            {site.navLinks.map((link) => (
               <li key={link.id}>
                 <a
                   href={`#${link.id}`}
@@ -73,10 +53,10 @@ const Navbar = () => {
 
           <div className="hidden items-center gap-7 md:flex">
             <a
-              href={PHONE_HREF}
+              href={site.phoneHref}
               className="link-underline text-[13px] font-normal tracking-wide text-grey transition-colors duration-300 hover:text-ink"
             >
-              {PHONE}
+              {site.phone}
             </a>
             <ThemeToggle />
             <a href="#contact" className="site-btn text-[13px]">
@@ -111,28 +91,24 @@ const Navbar = () => {
       {menuOpen ? (
         <div className="fixed inset-0 z-30 flex flex-col bg-paper px-6 pb-12 pt-28 md:hidden">
           <ul className="flex list-none flex-col">
-            {LINKS.concat({ id: "contact", title: "Contact" }).map(
-              (link, index) => (
-                <li key={link.id} className="hairline">
-                  <a
-                    href={`#${link.id}`}
-                    onClick={() => setMenuOpen(false)}
-                    className="flex items-baseline gap-4 py-5"
-                  >
-                    <span className="index-num">
-                      {String(index + 1).padStart(2, "0")}
-                    </span>
-                    <span className="display-md">{link.title}</span>
-                  </a>
-                </li>
-              )
-            )}
+            {site.mobileNavLinks.map((link, index) => (
+              <li key={link.id} className="hairline">
+                <a
+                  href={`#${link.id}`}
+                  onClick={() => setMenuOpen(false)}
+                  className="flex items-baseline gap-4 py-5"
+                >
+                  <span className="index-num">{padIndex(index)}</span>
+                  <span className="display-md">{link.title}</span>
+                </a>
+              </li>
+            ))}
           </ul>
 
           <div className="mt-auto flex flex-col gap-2">
             <span className="meta-label">Direct</span>
-            <a href={PHONE_HREF} className="text-[15px] font-normal text-ink">
-              {PHONE}
+            <a href={site.phoneHref} className="text-[15px] font-normal text-ink">
+              {site.phone}
             </a>
           </div>
         </div>

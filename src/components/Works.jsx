@@ -2,12 +2,14 @@ import { useCallback, useState } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 
-import { styles } from "../styles";
 import { SectionWrapper } from "../hoc";
 import { projects } from "../constants";
 import { useMediaQuery } from "../hooks/useMediaQuery";
 import { useTechFilter } from "../context/TechFilterProvider";
-import { fadeIn, textVariant } from "../utils/motion";
+import { fadeIn } from "../utils/motion";
+import { padIndex } from "../utils/format";
+import SectionHeader from "./ui/SectionHeader";
+import TagList from "./ui/TagList";
 
 const SPRING = { stiffness: 220, damping: 28, mass: 0.6 };
 
@@ -58,9 +60,7 @@ const ProjectRow = ({
     onMouseLeave={onLeave}
   >
     <div className="relative flex flex-col gap-5 px-1 py-8 sm:py-10 md:flex-row md:items-center md:gap-8">
-      <span className="index-num md:w-14 md:shrink-0">
-        {String(index + 1).padStart(2, "0")}
-      </span>
+      <span className="index-num md:w-14 md:shrink-0">{padIndex(index)}</span>
 
       {!isDesktop ? (
         <div className="h-52 w-full overflow-hidden rounded-sm bg-paper-200">
@@ -85,13 +85,7 @@ const ProjectRow = ({
       </div>
 
       <div className="flex items-center justify-between gap-6 md:w-auto md:shrink-0 md:flex-col md:items-end md:gap-5">
-        <div className="flex flex-wrap gap-2 md:justify-end">
-          {project.tags.map((tag) => (
-            <span key={`${project.name}-${tag.name}`} className="tag-pill">
-              {tag.name}
-            </span>
-          ))}
-        </div>
+        <TagList tags={project.tags} className="md:justify-end" />
         <span className="visit-btn shrink-0" aria-hidden="true">
           <ArrowUpRight className="h-4 w-4" strokeWidth={1.5} />
         </span>
@@ -135,27 +129,19 @@ const Works = () => {
 
   return (
     <>
-      <motion.div
-        variants={textVariant()}
-        className="flex flex-wrap items-end justify-between gap-6"
-      >
-        <div>
-          <p className={styles.sectionSubText}>Selected work</p>
-          <h2 className={`${styles.sectionHeadText} mt-6`}>Projects</h2>
-        </div>
-        <p className="max-w-xs text-[14px] font-normal leading-relaxed text-grey">
-          A few products I&apos;ve designed, built, and shipped — across web,
-          mobile, and AI systems.
-        </p>
-      </motion.div>
+      <SectionHeader
+        eyebrow="Selected work"
+        title="Projects"
+        aside="A few products I've designed, built, and shipped — across web, mobile, and AI systems."
+      />
 
       {selected ? (
         <div className="mt-10 flex flex-wrap items-center gap-4 border-y border-[color:var(--hairline)] py-4">
           <span className="meta-label">Filtered by</span>
           <span className="tag-pill">{selected}</span>
           <span className="chapter-count">
-            {String(matchCount).padStart(2, "0")} of{" "}
-            {String(projects.length).padStart(2, "0")}
+            {padIndex(matchCount, { base: 0 })} of{" "}
+            {padIndex(projects.length, { base: 0 })}
           </span>
           <button
             type="button"

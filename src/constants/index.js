@@ -8,28 +8,13 @@ import {
   aiSurveillance,
   fineme,
 } from "../assets";
+import { aboutFacts, site } from "./site";
 
 const reminderlink =
   "https://play-lh.googleusercontent.com/T_8AomrLfCRkhipp6LuppbacMfOMJ9kzWGVCxCcuwb1fA9wkLpTbr0uff3Vsw5OokOxlcUEX60FqX04OJK0r8g=w512";
 
-export const navLinks = [
-  {
-    id: "about",
-    title: "About",
-  },
-  {
-    id: "work",
-    title: "Experience",
-  },
-  {
-    id: "projects",
-    title: "Projects",
-  },
-  {
-    id: "contact",
-    title: "Contact",
-  },
-];
+/** @deprecated Prefer `site.navLinks` — kept as alias for tests/callers. */
+export const navLinks = site.navLinks;
 
 const services = [
   {
@@ -318,6 +303,8 @@ const projects = [
 ];
 
 export {
+  site,
+  aboutFacts,
   services,
   technologies,
   skillCategories,

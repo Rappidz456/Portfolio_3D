@@ -13,9 +13,9 @@ describe("portfolio constants", () => {
   it("defines navigation anchors", () => {
     expect(navLinks.map((link) => link.id)).toEqual([
       "about",
-      "work",
       "projects",
-      "contact",
+      "services",
+      "work",
     ]);
   });
 

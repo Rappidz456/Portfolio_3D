@@ -1,9 +1,10 @@
 import { motion } from "framer-motion";
 
-import { styles } from "../styles";
 import { SectionWrapper } from "../hoc";
 import { experiences } from "../constants";
-import { fadeIn, textVariant } from "../utils/motion";
+import { fadeIn } from "../utils/motion";
+import { padIndex } from "../utils/format";
+import SectionHeader from "./ui/SectionHeader";
 
 const ExperienceRow = ({ experience, index }) => (
   <motion.article
@@ -11,9 +12,7 @@ const ExperienceRow = ({ experience, index }) => (
     className="hairline grid gap-6 py-10 md:grid-cols-12 md:gap-8"
   >
     <div className="flex items-start gap-4 md:col-span-4">
-      <span className="index-num pt-1">
-        {String(index + 1).padStart(2, "0")}
-      </span>
+      <span className="index-num pt-1">{padIndex(index)}</span>
       <div>
         <h3 className="display-md text-ink">{experience.title}</h3>
         <p className="mt-2 flex items-center gap-2.5 text-[14px] font-normal text-grey">
@@ -50,18 +49,11 @@ const ExperienceRow = ({ experience, index }) => (
 const Experience = () => {
   return (
     <>
-      <motion.div
-        variants={textVariant()}
-        className="flex flex-wrap items-end justify-between gap-6"
-      >
-        <div>
-          <p className={styles.sectionSubText}>Career</p>
-          <h2 className={`${styles.sectionHeadText} mt-6`}>Experience</h2>
-        </div>
-        <p className="max-w-xs text-[14px] font-normal leading-relaxed text-grey">
-          Where I&apos;ve worked, and what I was responsible for shipping.
-        </p>
-      </motion.div>
+      <SectionHeader
+        eyebrow="Career"
+        title="Experience"
+        aside="Where I've worked, and what I was responsible for shipping."
+      />
 
       <div className="mt-14">
         {experiences.map((experience, index) => (

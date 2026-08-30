@@ -1,3 +1,5 @@
+import { site } from "../constants/site";
+
 export const INITIAL_CONTACT_FORM = {
   name: "",
   email: "",
@@ -19,7 +21,7 @@ export function updateContactField(form, name, value) {
  * Template variables should match these keys in your EmailJS dashboard:
  * {{from_name}}, {{from_email}}, {{to_name}}, {{message}}, {{reply_to}}
  */
-export function buildEmailTemplateParams(form, toName = "Muhammad Ali") {
+export function buildEmailTemplateParams(form, toName = site.name) {
   const fromEmail = form.email.trim();
 
   return {
